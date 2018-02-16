@@ -1,0 +1,56 @@
+plugins {
+    id "java"
+    id "eclipse"
+    id "idea"
+    id "jaci.openrio.gradle.GradleRIO" version "2018.01.11"
+}
+
+def TEAM = 1389
+def ROBOT_CLASS = "com.team1389.robot.Robot"
+
+// Define targets (RoboRIO) and artifacts (deployable files)
+// This is added by GradleRIO's backing project EmbeddedTools.
+deploy {
+    targets {
+        target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
+            team = TEAM
+        }
+    }
+    artifacts {
+        artifact('frcJava', jaci.openrio.gradle.frc.FRCJavaArtifact) {
+            targets << "roborio"
+        }
+    }
+}
+repositories {
+	mavenCentral()
+	maven {url "https://github.com/OhmSuite/ohm/tree/release"}
+	maven {url 'https://jitpack.io'}
+
+}
+
+// Defining dependencies. In this case, WPILib (+ friends), CTRE Toolsuite (Talon SRX),
+// NavX, and Ohm.
+dependencies {
+    compile wpilib()
+    compile ctre()
+    compile navx()
+    compile pathfinder()
+    compile openrio.powerup.matchData()
+   	compile files('native')
+   	//compile 'com.github.OhmSuite:ohm:0.1.0'
+   	compile files('../ohm/Ohm/build/libs/Ohm-0.1.0.jar')
+   	
+}
+
+// Setting up the Jar File. In this case, adding all libraries into the main jar ('fat jar')
+// in order to make them all available at runtime. Also adding the manifest so WPILib
+// knows where to look for our Robot Class.
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest jaci.openrio.gradle.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4'
+}
