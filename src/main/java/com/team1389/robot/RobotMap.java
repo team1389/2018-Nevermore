@@ -53,19 +53,22 @@ public class RobotMap
 	// Elevator
 	protected final CAN can_RIGHT_ELEVATOR = new CAN(3);
 	protected final boolean inv_RIGHT_ELEVATOR = false;
-	protected final boolean sinv_ELEVATOR = false;
+	protected final boolean sinv_RIGHT_ELEVATOR = false;
 
 	protected final CAN can_LEFT_ELEVATOR = new CAN(4);
 	protected final boolean inv_LEFT_ELEVATOR = false;
 	protected final boolean sinv_LEFT_ELEVATOR = false;
 
 	protected final DIO dio_ELEVATOR_ZERO = new DIO(0);
+	protected final boolean inv_ELEVATOR_ZERO = false;
+
 	protected final DIO dio_ELEVATOR_TOP = new DIO(1);
+	protected final boolean inv_ELEVATOR_TOP = false;
 
 	// Arm
 	protected final CAN can_RIGHT_ARM_LIFT = new CAN(5);
 	protected final boolean inv_RIGHT_ARM_LIFT = false;
-	protected final boolean sinv_ARM_LIFT = false;
+	protected final boolean sinv_ARM_RIGHT_LIFT = false;
 
 	protected final CAN can_LEFT_ARM_LIFT = new CAN(6);
 	protected final boolean inv_LEFT_ARM_LIFT = false;
@@ -78,7 +81,10 @@ public class RobotMap
 	protected final boolean inv_ARM_INTAKE_B = true;
 
 	protected final DIO dio_BEAMBREAK = new DIO(2);
+	protected final boolean inv_BEAMBREAK = false;
+
 	protected final DIO dio_ARM_ZERO = new DIO(3);
+	protected final boolean inv_ARM_ZERO = false;
 
 	// gyro
 	protected final SPIPort spi_GyroPort = new SPIPort(SPI.Port.kOnboardCS0);

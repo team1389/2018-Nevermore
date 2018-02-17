@@ -21,8 +21,8 @@ public class RobotLayout extends RobotMap
 	public VictorHardware driveRightVA;
 	public VictorHardware driveLeftVB;
 	public VictorHardware driveRightVB;
-	public VictorHardware armIntake1;
-	public VictorHardware armIntake2;
+	public VictorHardware armIntakeA;
+	public VictorHardware armIntakeB;
 	public CANTalonHardware driveLeftT;
 	public CANTalonHardware driveRightT;
 	public CANTalonHardware elevatorRight;

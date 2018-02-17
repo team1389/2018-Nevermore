@@ -1,6 +1,7 @@
 package com.team1389.systems;
 
 import com.team1389.hardware.inputs.software.DigitalIn;
+import com.team1389.hardware.inputs.software.PercentIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
@@ -21,12 +22,12 @@ public class TeleopElevator extends Elevator
 	// high switch
 	DigitalIn zeroBtn, switchBtn, scaleLowBtn, scaleMiddleBtn, scaleHighBtn;
 	DigitalIn manualBtn;
-	RangeIn<Value> ctrlAxis;
+	PercentIn ctrlAxis;
 	boolean manual;
 
 	public TeleopElevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt,
 			DigitalIn zeroBtn, DigitalIn switchBtn, DigitalIn scaleLowBtn, DigitalIn scaleMiddleBtn,
-			DigitalIn scaleHighBtn, DigitalIn manualBtn, RangeIn<Value> ctrlAxis)
+			DigitalIn scaleHighBtn, DigitalIn manualBtn, PercentIn ctrlAxis)
 	{
 		super(zero, elevPos, elevVel, elevVolt);
 		this.zeroBtn = zeroBtn;

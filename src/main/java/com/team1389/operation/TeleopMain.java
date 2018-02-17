@@ -1,6 +1,7 @@
 package com.team1389.operation;
 
 import com.team1389.hardware.controls.ControlBoard;
+import com.team1389.hardware.registry.port_types.CAN;
 import com.team1389.robot.RobotConstants;
 import com.team1389.robot.RobotSoftware;
 import com.team1389.system.Subsystem;
@@ -17,8 +18,8 @@ public class TeleopMain
 	RobotSoftware robot;
 	Watcher watcher;
 	Subsystem driveSystem;
-	Subsystem elevator;
-	Subsystem arm;
+	Subsystem elevatorSystem;
+	Subsystem armSystem;
 	Subsystem visionSystem;
 	boolean vision;
 
@@ -31,10 +32,11 @@ public class TeleopMain
 	{
 		controls = ControlBoard.getInstance();
 		driveSystem = setUpDriveSystem();
+		elevatorSystem = setUpElevatorSystem();
 		visionSystem = setUpVisionSystem();
 		manager = new SystemManager(driveSystem);
 		manager.init();
-		// watcher.watch(driveSystem);
+		watcher.watch(driveSystem);
 
 	}
 
@@ -44,11 +46,14 @@ public class TeleopMain
 				controls.rightBumper(), robot.robotAngle.get(), RobotConstants.GYROCorrection);
 
 	}
-	
-/*	private Subsystem setUpElevatorSystem()
+
+	private Subsystem setUpElevatorSystem()
 	{
-		return new TeleopElevator(hallef, robot.elevatorPosition, , robot.elevatorSpeed, controls.startButton(), switchBtn, scaleLowBtn, scaleMiddleBtn, scaleHighBtn, manualBtn, ctrlAxis)
-	}*/
+		return new TeleopElevator(robot.armZero.getSwitchInput(), robot.elevatorPosition, robot.elevatorSpeed,
+				robot.elevatorLeft.getVoltageController().mapToRange(-1, 1), controls.startButton(), controls.xButton(),
+				controls.aButton(), controls.bButton(), controls.yButton(), controls.startButton(),
+				controls.leftStickYAxis());
+	}
 
 	private Subsystem setUpVisionSystem()
 	{
