@@ -1,7 +1,6 @@
 package com.team1389.robot;
 
 import com.team1389.hardware.inputs.software.AngleIn;
-import com.team1389.hardware.inputs.software.PositionEncoderIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
@@ -33,7 +32,6 @@ public class RobotSoftware extends RobotHardware
 
 	public RobotSoftware()
 	{
-		PositionEncoderIn.setGlobalWheelDiameter(RobotConstants.WheelDiameter);
 	}
 
 }
