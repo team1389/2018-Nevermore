@@ -1,12 +1,13 @@
 package com.team1389.systems;
 
+import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.DigitalIn;
+import com.team1389.hardware.inputs.software.PercentIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
-import com.team1389.hardware.value_types.Value;
 
 /**
  * The 
@@ -15,17 +16,17 @@ import com.team1389.hardware.value_types.Value;
  */
 public class TeleopArm extends Arm
 {
-	RangeIn<Position> armPos;
+	AngleIn<Position> armPos;
 	RangeOut<Percent> intakeVolt;
 	RangeOut<Percent> armVolt;
 	RangeIn<Speed> armVel;
-	RangeIn<Value> ctrlAxis;
+	PercentIn ctrlAxis;
 	DigitalIn beambreak;
 	DigitalIn zero;
 	DigitalIn vertBtn, frontBtn, rearBtn, manualBtn, intakeBtn, outtakeBtn;
 	boolean manual;
 
-	public TeleopArm(RangeIn<Position> armPos, RangeIn<Value> ctrlAxis, RangeOut<Percent> intakeVolt,
+	public TeleopArm(AngleIn<Position> armPos, PercentIn ctrlAxis, RangeOut<Percent> intakeVolt,
 			RangeOut<Percent> armVolt, RangeIn<Speed> armVel, DigitalIn beambreak, DigitalIn zero, DigitalIn vertBtn,
 			DigitalIn frontBtn, DigitalIn rearBtn, DigitalIn manualBtn, DigitalIn intakeBtn, DigitalIn outtakeBtn)
 	{
