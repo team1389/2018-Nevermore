@@ -47,7 +47,7 @@ public class TeleopMain
 	
 	/*private Subsystem setUpElevatorSystem()
 	{
-		return new TeleopElevator(controls.startButton(), robot.elevatorPositionleft, , elevVolt, zeroBtn, switchBtn, scaleLowBtn, scaleMiddleBtn, scaleHighBtn, manualBtn, ctrlAxis)
+		return new TeleopElevator(controls.startButton(), robot.elevatorPosition, , elevVolt, zeroBtn, switchBtn, scaleLowBtn, scaleMiddleBtn, scaleHighBtn, manualBtn, ctrlAxis)
 	}*/
 
 	private Subsystem setUpVisionSystem()
