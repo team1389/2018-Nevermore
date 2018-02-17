@@ -12,13 +12,13 @@ public class RobotSoftware extends RobotHardware
 	private static RobotSoftware INSTANCE = new RobotSoftware();
 
 	public final RangeOut<Percent> right = driveRightT.getVoltageController()
-			.addFollowers(driveRightV.getVoltageOutput());
-	public final RangeOut<Percent> left = driveLeftT.getVoltageController().addFollowers(driveLeftV.getVoltageOutput());
+			.addFollowers(driveRightV1.getVoltageOutput());
+	public final RangeOut<Percent> left = driveLeftT.getVoltageController().addFollowers(driveLeftV1.getVoltageOutput());
 	// public final DriveOut<Percent> drive = new
 	// DriveOut<Percent>(leftDriveT.getVoltageController(),
 	// rightDriveT.getVoltageController());
 	public final FourDriveOut<Percent> drive = new FourDriveOut<Percent>(driveLeftT.getVoltageController(),
-			driveRightT.getVoltageController(), driveLeftV.getVoltageOutput(), driveRightV.getVoltageOutput());
+			driveRightT.getVoltageController(), driveLeftV1.getVoltageOutput(), driveRightV1.getVoltageOutput());
 	public final AngleIn<Position> robotAngle = gyro.getAngleInput();
 	//public final AngleIn<Position> elevatorPosition = 
 

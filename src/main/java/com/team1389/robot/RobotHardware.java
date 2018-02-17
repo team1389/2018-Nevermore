@@ -35,8 +35,8 @@ public class RobotHardware extends RobotLayout
 
 	private void initDriveTrain()
 	{
-		driveLeftV = new VictorHardware(inv_LEFT_DRIVE_V, pwm_LEFT_DRIVE_V, registry);
-		driveRightV = new VictorHardware(inv_RIGHT_DRIVE_V, pwm_RIGHT_DRIVE_V, registry);
+		driveLeftV1 = new VictorHardware(inv_LEFT_DRIVE_V1, pwm_LEFT_DRIVE_V1, registry);
+		driveRightV1 = new VictorHardware(inv_RIGHT_DRIVE_V1, pwm_RIGHT_DRIVE_V1, registry);
 		driveLeftT = new CANTalonHardware(inv_LEFT_DRIVE_T, sinv_LEFT_DRIVE_T, FeedbackDevice.QuadEncoder, 1024,
 				can_LEFT_DRIVE_T, registry, t -> t.setSelectedSensorPosition(0, 0, 10));
 		driveRightT = new CANTalonHardware(inv_RIGHT_DRIVE_T, sinv_RIGHT_DRIVE_T, FeedbackDevice.QuadEncoder, 1024,
