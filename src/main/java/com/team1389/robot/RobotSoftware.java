@@ -1,5 +1,7 @@
 package com.team1389.robot;
 
+import java.util.function.Supplier;
+
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.RangeOut;
@@ -20,10 +22,14 @@ public class RobotSoftware extends RobotHardware
 			driveRightT.getVoltageController(), driveLeftV1.getVoltageOutput(), driveRightV1.getVoltageOutput(),
 			driveLeftV2.getVoltageOutput(), driveRightV2.getVoltageOutput());
 	public final AngleIn<Position> robotAngle = gyro.getAngleInput();
-	public final RangeIn<Position> elevatorPositionleft = elevatorLeft.getSensorPositionStream();
-	public final RangeIn<Position> elevatorPositionRight = elevatorRight.getSensorPositionStream();
-	public final AngleIn<Position> armAngleLeft = armLiftLeft.getSensorPositionStream().mapToAngle(Position.class);
-	public final AngleIn<Position> armAngleRIght = armLiftRight.getSensorPositionStream().mapToAngle(Position.class);
+	private final RangeIn<Position> elevatorPositionleft = elevatorLeft.getSensorPositionStream();
+	private final RangeIn<Position> elevatorPositionRight = elevatorRight.getSensorPositionStream();
+	public final RangeIn<Position> elevatorPosition = new RangeIn(Position.class,
+			() -> (elevatorPositionleft.get() + elevatorPositionRight.get() / 2), Double.MIN_VALUE, Double.MAX_VALUE);
+	private final AngleIn<Position> armAngleLeft = armLiftLeft.getSensorPositionStream().mapToAngle(Position.class);
+	private final AngleIn<Position> armAngleRight = armLiftRight.getSensorPositionStream().mapToAngle(Position.class);
+	public final AngleIn<Position> armAngle = new AngleIn(Position.class,
+			(Supplier) () -> ((armAngleLeft.get() + armAngleRight.get()) / 2));
 
 	public static RobotSoftware getInstance()
 	{
