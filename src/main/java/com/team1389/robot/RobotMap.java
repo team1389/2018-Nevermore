@@ -1,6 +1,7 @@
 package com.team1389.robot;
 
 import com.team1389.hardware.registry.port_types.CAN;
+import com.team1389.hardware.registry.port_types.DIO;
 import com.team1389.hardware.registry.port_types.PWM;
 import com.team1389.hardware.registry.port_types.SPIPort;
 
@@ -29,26 +30,55 @@ import edu.wpi.first.wpilibj.SPI;
 public class RobotMap
 {
 	// Drivetrain
-	protected final PWM pwm_LEFT_DRIVE_V1 = new PWM(1);
-	protected final boolean inv_LEFT_DRIVE_V1 = false;
+	protected final PWM pwm_LEFT_DRIVE_V_A = new PWM(1);
+	protected final boolean inv_LEFT_DRIVE_V_A = false;
 
-	protected final PWM pwm_LEFT_DRIVE_V2 = new PWM(2);
-	protected final boolean inv_LEFT_DRIVE_V2 = false;
+	protected final PWM pwm_LEFT_DRIVE_V_B = new PWM(2);
+	protected final boolean inv_LEFT_DRIVE_V_B = false;
 
 	protected final CAN can_LEFT_DRIVE_T = new CAN(1);
 	protected final boolean inv_LEFT_DRIVE_T = false;
 	protected final boolean sinv_LEFT_DRIVE_T = false;
 
-	protected final PWM pwm_RIGHT_DRIVE_V1 = new PWM(0);
-	protected final boolean inv_RIGHT_DRIVE_V1 = true;
-	
-	protected final PWM pwm_RIGHT_DRIVE_V2 = new PWM(3);
-	protected final boolean inv_RIGHT_DRIVE_V2 = true;
-	
+	protected final PWM pwm_RIGHT_DRIVE_V_A = new PWM(0);
+	protected final boolean inv_RIGHT_DRIVE_V_A = true;
+
+	protected final PWM pwm_RIGHT_DRIVE_V_B = new PWM(3);
+	protected final boolean inv_RIGHT_DRIVE_V_B = true;
 
 	protected final CAN can_RIGHT_DRIVE_T = new CAN(2);
 	protected final boolean inv_RIGHT_DRIVE_T = true;
 	protected final boolean sinv_RIGHT_DRIVE_T = false;
+
+	// Elevator
+	protected final CAN can_RIGHT_ELEVATOR = new CAN(3);
+	protected final boolean inv_RIGHT_ELEVATOR = false;
+	protected final boolean sinv_ELEVATOR = false;
+
+	protected final CAN can_LEFT_ELEVATOR = new CAN(4);
+	protected final boolean inv_LEFT_ELEVATOR = false;
+	protected final boolean sinv_LEFT_ELEVATOR = false;
+
+	protected final DIO dio_ELEVATOR_ZERO = new DIO(0);
+	protected final DIO dio_ELEVATOR_TOP = new DIO(1);
+
+	// Arm
+	protected final CAN can_RIGHT_ARM_LIFT = new CAN(5);
+	protected final boolean inv_RIGHT_ARM_LIFT = false;
+	protected final boolean sinv_ARM_LIFT = false;
+
+	protected final CAN can_LEFT_ARM_LIFT = new CAN(6);
+	protected final boolean inv_LEFT_ARM_LIFT = false;
+	protected final boolean sinv_LEFT_ARM_LIFT = false;
+
+	protected final PWM pwm_ARM_INTAKE_A = new PWM(4);
+	protected final boolean inv_ARM_INTAKE_A = true;
+
+	protected final PWM pwm_ARM_INTAKE_B = new PWM(5);
+	protected final boolean inv_ARM_INTAKE_B = true;
+
+	protected final DIO dio_BEAMBREAK = new DIO(2);
+	protected final DIO dio_ARM_ZERO = new DIO(3);
 
 	// gyro
 	protected final SPIPort spi_GyroPort = new SPIPort(SPI.Port.kOnboardCS0);

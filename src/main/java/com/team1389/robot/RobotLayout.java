@@ -2,6 +2,7 @@ package com.team1389.robot;
 
 import com.team1389.hardware.inputs.hardware.PDPHardware;
 import com.team1389.hardware.inputs.hardware.SpartanGyro;
+import com.team1389.hardware.inputs.hardware.SwitchHardware;
 import com.team1389.hardware.outputs.hardware.CANTalonHardware;
 import com.team1389.hardware.outputs.hardware.VictorHardware;
 import com.team1389.hardware.registry.Registry;
@@ -16,10 +17,10 @@ public class RobotLayout extends RobotMap
 {
 	public Registry registry;
 	public PDPHardware pdp;
-	public VictorHardware driveLeftV1;
-	public VictorHardware driveRightV1;
-	public VictorHardware driveLeftV2;
-	public VictorHardware driveRightV2;
+	public VictorHardware driveLeftVA;
+	public VictorHardware driveRightVA;
+	public VictorHardware driveLeftVB;
+	public VictorHardware driveRightVB;
 	public VictorHardware armIntake1;
 	public VictorHardware armIntake2;
 	public CANTalonHardware driveLeftT;
@@ -29,5 +30,9 @@ public class RobotLayout extends RobotMap
 	public CANTalonHardware armLiftLeft;
 	public CANTalonHardware armLiftRight;
 	public SpartanGyro gyro;
+	public SwitchHardware elevatorZero;
+	public SwitchHardware elevatorTop;
+	public SwitchHardware armZero;
+	public SwitchHardware beambreak;
 
 }
