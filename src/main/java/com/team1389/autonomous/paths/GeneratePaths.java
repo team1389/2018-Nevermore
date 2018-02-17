@@ -15,9 +15,9 @@ public class GeneratePaths
 	public GeneratePaths(RobotSoftware robo)
 	{
 		constants = new Constants(RobotConstants.MaxJerk, RobotConstants.MaxAcceleration, RobotConstants.MaxVelocity, 1,
-				0, 0, robo.pos.get(), 2);
-		path = new PathFollowingSystem(robo.drive.getAsTank(), robo.leftDriveT.getSensorPositionStream(),
-				robo.rightDriveT.getSensorPositionStream(), robo.pos, constants);
+				0, 0, robo.robotAngle.get(), 2);
+		path = new PathFollowingSystem(robo.drive.getAsTank(), robo.driveLeftT.getSensorPositionStream(),
+				robo.driveRightT.getSensorPositionStream(), robo.robotAngle, constants);
 	}
 
 	public void generateDriveStraight()

@@ -6,6 +6,7 @@ import com.team1389.robot.RobotSoftware;
 import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
 import com.team1389.system.drive.CurvatureDriveSystem;
+import com.team1389.systems.TeleopElevator;
 import com.team1389.systems.Vision;
 import com.team1389.watch.Watcher;
 
@@ -15,6 +16,9 @@ public class TeleopMain
 	ControlBoard controls;
 	RobotSoftware robot;
 	Watcher watcher;
+	Subsystem driveSystem;
+	Subsystem elevator;
+	Subsystem arm;
 	Subsystem visionSystem;
 	boolean vision;
 
@@ -26,7 +30,7 @@ public class TeleopMain
 	public void init()
 	{
 		controls = ControlBoard.getInstance();
-		Subsystem driveSystem = setUpDriveSystem();
+		driveSystem = setUpDriveSystem();
 		visionSystem = setUpVisionSystem();
 		manager = new SystemManager(driveSystem);
 		manager.init();
@@ -37,9 +41,14 @@ public class TeleopMain
 	private Subsystem setUpDriveSystem()
 	{
 		return new CurvatureDriveSystem(robot.drive.getAsTank(), controls.xDriveY(), controls.xDriveX(),
-				controls.rightBumper(), robot.pos.get(), RobotConstants.GYROCorrection);
+				controls.rightBumper(), robot.robotAngle.get(), RobotConstants.GYROCorrection);
 
 	}
+	
+	/*private Subsystem setUpElevatorSystem()
+	{
+		return new TeleopElevator(controls.startButton(), elevPos, elevVel, elevVolt, zeroBtn, switchBtn, scaleLowBtn, scaleMiddleBtn, scaleHighBtn, manualBtn, ctrlAxis)
+	}*/
 
 	private Subsystem setUpVisionSystem()
 	{
