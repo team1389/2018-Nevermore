@@ -44,14 +44,14 @@ public class TeleopMain
 	private Subsystem setUpDriveSystem()
 	{
 		return new CurvatureDriveSystem(robot.drive.getAsTank(), controls.xDriveY(), controls.xDriveX(),
-				controls.rightBumper(), robot.robotAngle.get(), RobotConstants.GYROCorrection);
+				controls.rightBumper(), robot.robotAngle.get(), RobotConstants.GyroCorrection);
 
 	}
 
 	private Subsystem setUpElevatorSystem()
 	{
 		return new TeleopElevator(robot.armZero.getSwitchInput(), robot.elevatorPosition, robot.elevatorSpeed,
-				robot.elevatorLeft.getVoltageController().mapToRange(-1, 1), controls.startButton(), controls.xButton(),
+				robot.elevatorLeft.getVoltageController(), controls.startButton(), controls.xButton(),
 				controls.aButton(), controls.bButton(), controls.yButton(), controls.startButton(),
 				controls.leftStickYAxis());
 	}
@@ -59,8 +59,8 @@ public class TeleopMain
 	private Subsystem setUpArmSystem()
 	{
 		return new TeleopArm(robot.armAngle, controls.rightStickYAxis(),
-				robot.armIntakeA.getVoltageOutput().mapToRange(-1, 1),
-				robot.armLiftLeft.getVoltageController().mapToRange(-1, 1), robot.armSpeed,
+				robot.armIntakeA.getVoltageOutput(),
+				robot.armLiftLeft.getVoltageController(), robot.armSpeed,
 				robot.beambreak.getSwitchInput(), robot.armZero.getSwitchInput(), controls.upDPad(),
 				controls.leftBumper(), controls.rightBumper(), controls.backButton(), controls.leftDPad(),
 				controls.rightDPad());

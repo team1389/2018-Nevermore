@@ -37,7 +37,7 @@ public class RobotConstants {
 	/**
 	 * GyroCorrection for Driving straight
 	 */
-	public static final double GYROCorrection = 0.05;
+	public static final double GyroCorrection = 0.05;
 
 
 }

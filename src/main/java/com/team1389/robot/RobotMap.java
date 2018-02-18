@@ -30,24 +30,24 @@ import edu.wpi.first.wpilibj.SPI;
 public class RobotMap
 {
 	// Drivetrain
-	protected final PWM pwm_LEFT_DRIVE_V_A = new PWM(1);
+	protected final PWM pwm_LEFT_DRIVE_V_A = new PWM(4);
 	protected final boolean inv_LEFT_DRIVE_V_A = false;
 
-	protected final PWM pwm_LEFT_DRIVE_V_B = new PWM(2);
+	protected final PWM pwm_LEFT_DRIVE_V_B = new PWM(15);
 	protected final boolean inv_LEFT_DRIVE_V_B = false;
 
-	protected final CAN can_LEFT_DRIVE_T = new CAN(1);
+	protected final CAN can_LEFT_DRIVE_T = new CAN(2);
 	protected final boolean inv_LEFT_DRIVE_T = false;
 	protected final boolean sinv_LEFT_DRIVE_T = false;
 
-	protected final PWM pwm_RIGHT_DRIVE_V_A = new PWM(0);
+	protected final PWM pwm_RIGHT_DRIVE_V_A = new PWM(12);
 	protected final boolean inv_RIGHT_DRIVE_V_A = true;
 
-	protected final PWM pwm_RIGHT_DRIVE_V_B = new PWM(3);
+	protected final PWM pwm_RIGHT_DRIVE_V_B = new PWM(13);
 	protected final boolean inv_RIGHT_DRIVE_V_B = true;
 
-	protected final CAN can_RIGHT_DRIVE_T = new CAN(2);
-	protected final boolean inv_RIGHT_DRIVE_T = true;
+	protected final CAN can_RIGHT_DRIVE_T = new CAN(1);
+	protected final boolean inv_RIGHT_DRIVE_T = false;
 	protected final boolean sinv_RIGHT_DRIVE_T = false;
 
 	// Elevator
@@ -74,7 +74,7 @@ public class RobotMap
 	protected final boolean inv_LEFT_ARM_LIFT = false;
 	protected final boolean sinv_LEFT_ARM_LIFT = false;
 
-	protected final PWM pwm_ARM_INTAKE_A = new PWM(4);
+	protected final PWM pwm_ARM_INTAKE_A = new PWM(14);
 	protected final boolean inv_ARM_INTAKE_A = true;
 
 	protected final PWM pwm_ARM_INTAKE_B = new PWM(5);
