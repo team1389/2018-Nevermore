@@ -52,7 +52,7 @@ public class RobotHardware extends RobotLayout
 		elevatorZero = new SwitchHardware(inv_ELEVATOR_ZERO, dio_ELEVATOR_ZERO, registry);
 		elevatorTop = new SwitchHardware(inv_ELEVATOR_TOP, dio_ELEVATOR_TOP, registry);
 	}
-
+ 
 	private void initArm()
 	{
 		armIntakeA = new VictorHardware(inv_ARM_INTAKE_A, pwm_ARM_INTAKE_A, registry);

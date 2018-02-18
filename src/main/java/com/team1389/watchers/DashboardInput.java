@@ -1,8 +1,8 @@
 package com.team1389.watchers;
 
 import com.team1389.auto.AutoModeBase;
-import com.team1389.autonomous.AutonModeSelector;
-import com.team1389.autonomous.AutonOption;
+import com.team1389.autonomous.AutoModeSelector;
+import com.team1389.autonomous.AutoOption;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,11 +18,11 @@ public class DashboardInput {
 		init();
 	}
 
-	private SendableChooser<AutonOption> autonSelector;
+	private SendableChooser<AutoOption> autonSelector;
 
 	public void init() {
-		autonSelector = new SendableChooser<AutonOption>();
-		for (AutonOption autonOption : AutonOption.values()) {
+		autonSelector = new SendableChooser<AutoOption>();
+		for (AutoOption autonOption : AutoOption.values()) {
 			autonSelector.addObject(autonOption.name, autonOption);
 		}
 
@@ -30,19 +30,19 @@ public class DashboardInput {
 	}
 
 	private static final String SELECTED_AUTO_MODE = "selected_auto_mode";
-	private static final AutonOption DEFAULT_MODE = AutonOption.DRIVE_STRAIGHT;
+	private static final AutoOption DEFAULT_MODE = AutoOption.DRIVE_STRAIGHT;
 
 	public AutoModeBase getSelectedAutonMode() {
 		String autoModeString = SmartDashboard.getString(SELECTED_AUTO_MODE, DEFAULT_MODE.name);
-		AutonOption selectedOption = DEFAULT_MODE;
-		for (AutonOption autonOption : AutonOption.values()) {
+		AutoOption selectedOption = DEFAULT_MODE;
+		for (AutoOption autonOption : AutoOption.values()) {
 			if (autonOption.name.equals(autoModeString)) {
 				selectedOption = autonOption;
 				break;
 			}
 		}
-		selectedOption = (AutonOption) autonSelector.getSelected();
-		return AutonModeSelector.createAutoMode(selectedOption);
+		selectedOption = (AutoOption) autonSelector.getSelected();
+		return AutoModeSelector.createAutoMode(selectedOption);
 	}
 
 }
