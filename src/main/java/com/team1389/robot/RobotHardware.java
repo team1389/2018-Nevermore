@@ -38,7 +38,7 @@ public class RobotHardware extends RobotLayout
 		driveLeftVA = new VictorHardware(inv_LEFT_DRIVE_V_A, pwm_LEFT_DRIVE_V_A, registry);
 		driveRightVA = new VictorHardware(inv_RIGHT_DRIVE_V_A, pwm_RIGHT_DRIVE_V_A, registry);
 		driveLeftT = new CANTalonHardware(inv_LEFT_DRIVE_T, sinv_LEFT_DRIVE_T, FeedbackDevice.QuadEncoder, 1024,
-				can_LEFT_DRIVE_T, registry, t -> t.setSelectedSensorPosition(0, 0, 10));
+				can_LEFT_DRIVE_T, registry);
 		driveRightT = new CANTalonHardware(inv_RIGHT_DRIVE_T, sinv_RIGHT_DRIVE_T, FeedbackDevice.QuadEncoder, 1024,
 				can_RIGHT_DRIVE_T, registry, t -> t.setSelectedSensorPosition(0, 0, 10));
 	}
@@ -57,8 +57,7 @@ public class RobotHardware extends RobotLayout
 	{
 		armIntakeA = new VictorHardware(inv_ARM_INTAKE_A, pwm_ARM_INTAKE_A, registry);
 		armIntakeB = new VictorHardware(inv_ARM_INTAKE_B, pwm_ARM_INTAKE_B, registry);
-		armLiftLeft = new CANTalonHardware(inv_LEFT_ARM_LIFT, sinv_LEFT_ARM_LIFT, FeedbackDevice.QuadEncoder, 1024,
-				can_LEFT_ARM_LIFT, registry, t -> t.setSelectedSensorPosition(0, 0, 10));
+		armLiftLeft = new CANTalonHardware(inv_LEFT_ARM_LIFT, can_LEFT_ARM_LIFT, registry);
 		armLiftRight = new CANTalonHardware(inv_RIGHT_ARM_LIFT, sinv_ARM_RIGHT_LIFT, FeedbackDevice.QuadEncoder, 1024,
 				can_RIGHT_ARM_LIFT, registry, t -> t.setSelectedSensorPosition(0, 0, 10));
 		beambreak = new SwitchHardware(inv_BEAMBREAK, dio_BEAMBREAK, registry);
