@@ -96,5 +96,6 @@ public class TeleopMain
 			manager.update();
 		}*/
 		manager.update();
+		Watcher.update();
 	}
 }
