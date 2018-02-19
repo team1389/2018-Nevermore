@@ -10,12 +10,7 @@ import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
 import com.team1389.system.drive.SixDriveOut;
 
-/**
- * all mapping to meters
- * 
- * @author Quunii
- *
- */
+//all mapped to meters
 public class RobotSoftware extends RobotHardware
 {
 	private static RobotSoftware INSTANCE = new RobotSoftware();
@@ -25,12 +20,12 @@ public class RobotSoftware extends RobotHardware
 
 	// Drivetrain
 	public final RangeOut<Percent> right = driveRightT.getVoltageController()
-			.addFollowers(driveRightVA.getVoltageOutput());
+			.addFollowers(driveRightVA.getVoltageController().addFollowers(driveRightVB.getVoltageController()));
 	public final RangeOut<Percent> left = driveLeftT.getVoltageController()
-			.addFollowers(driveLeftVA.getVoltageOutput());
+			.addFollowers(driveLeftVA.getVoltageController().addFollowers(driveLeftVB.getVoltageController()));
 	public final SixDriveOut<Percent> drive = new SixDriveOut<Percent>(driveLeftT.getVoltageController(),
-			driveRightT.getVoltageController(), driveLeftVA.getVoltageOutput(), driveRightVA.getVoltageOutput(),
-			driveLeftVB.getVoltageOutput(), driveRightVB.getVoltageOutput());
+			driveRightT.getVoltageController(), driveLeftVA.getVoltageController(), driveRightVA.getVoltageController(),
+			driveLeftVB.getVoltageController(), driveRightVB.getVoltageController());
 
 	// Elevator
 	// 18.66 scaling is 9.33 gear ratio * 2 for cascading elevator

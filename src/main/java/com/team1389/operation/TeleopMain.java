@@ -87,15 +87,14 @@ public class TeleopMain
 
 	public void periodic()
 	{
-		/*vision = vision ^ controls.startButton().get();
+		vision = vision ^ controls.startButton().get();
 		if (vision)
 		{
 			visionSystem.update();
 		} else
 		{
 			manager.update();
-		}*/
-		manager.update();
+		}
 		Watcher.update();
 	}
 }
