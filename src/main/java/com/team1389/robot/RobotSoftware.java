@@ -34,7 +34,7 @@ public class RobotSoftware extends RobotHardware
 
 	// Elevator
 	// 18.66 scaling is 9.33 gear ratio * 2 for cascading elevator
-	private final RangeIn<Position> elevatorPositionleft = elevatorLeft.getSensorPositionStream().scale(18.66)
+	/*private final RangeIn<Position> elevatorPositionleft = elevatorLeft.getSensorPositionStream().scale(18.66)
 			.mapToRange(0, 0.087776098768);
 	private final RangeIn<Position> elevatorPositionRight = elevatorRight.getSensorPositionStream().scale(18.66)
 			.mapToRange(0, 0.087776098768);
@@ -52,7 +52,7 @@ public class RobotSoftware extends RobotHardware
 	public final RangeIn<Speed> elevatorSpeed = new RangeIn<Speed>(Speed.class,
 			(Supplier<Double>) () -> ((elevatorRight.getVelocityStream().get() + elevatorLeft.getVelocityStream().get())
 					/ 2),
-			Double.MIN_VALUE, Double.MAX_VALUE);
+			Double.MIN_VALUE, Double.MAX_VALUE);*/
 
 	public static RobotSoftware getInstance()
 	{
