@@ -60,7 +60,7 @@ public class RobotHardware extends RobotLayout
 		armIntakeA = new VictorHardware(inv_ARM_INTAKE_A, pwm_ARM_INTAKE_A, registry);
 		armIntakeB = new VictorHardware(inv_ARM_INTAKE_B, pwm_ARM_INTAKE_B, registry);
 		armLiftLeft = new CANTalonHardware(inv_LEFT_ARM_LIFT, can_LEFT_ARM_LIFT, registry);
-		armLiftRight = new CANTalonHardware(inv_RIGHT_ARM_LIFT, sinv_ARM_RIGHT_LIFT, FeedbackDevice.QuadEncoder, 1024,
+		armLiftRight = new CANTalonHardware(inv_RIGHT_ARM_LIFT, sinv_ARM_RIGHT_LIFT, FeedbackDevice.CTRE_MagEncoder_Relative, 4096,
 				can_RIGHT_ARM_LIFT, registry, t -> t.setSelectedSensorPosition(0, 0, 10));
 		beambreak = new SwitchHardware(inv_BEAMBREAK, dio_BEAMBREAK, registry);
 		armZero = new SwitchHardware(inv_ARM_ZERO, dio_ARM_ZERO, registry);

@@ -60,15 +60,20 @@ public class Robot extends IterativeRobot
 		teleOperator.init();
 	}
 
+	
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
 	public void teleopPeriodic()
 	{
-		//robot.driveLeftVB.getVoltageOutput().set(.5);
-		//robot.driveRightVA.getVoltageOutput().set(.5);
-		//robot.driveLeftVA.getVoltageOutput().set(.5);
+		//robot.driveLeftVA.getVoltageController().set(0.25);
+		//robot.driveLeftVB.getVoltageController().set(0.5);
+		//robot.driveLeftT.getVoltageController().set(0.25);  // failed
+		
+		//robot.driveRightVA.getVoltageController().set(.5); // pwm2   failed
+		//robot.driveRightVB.getVoltageController().set(.25); // failed
+		//robot.driveRightT.getVoltageController().set(.25);
 
 		teleOperator.periodic();
 	}
