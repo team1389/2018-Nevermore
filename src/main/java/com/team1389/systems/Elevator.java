@@ -42,6 +42,7 @@ public class Elevator extends Subsystem
 
 	public Elevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt)
 	{
+		super();
 		this.zero = zero;
 		this.elevPos = elevPos;
 		this.elevVolt = elevVolt;

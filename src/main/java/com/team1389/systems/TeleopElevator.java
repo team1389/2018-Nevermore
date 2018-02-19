@@ -10,8 +10,6 @@ import com.team1389.hardware.value_types.Speed;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
 
-import edu.wpi.first.wpilibj.command.Scheduler;
-
 /**
  * Teleop Elevator System, implements buttons for manipulator control
  * 
