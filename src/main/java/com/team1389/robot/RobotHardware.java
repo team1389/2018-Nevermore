@@ -30,13 +30,15 @@ public class RobotHardware extends RobotLayout
 		gyro = new SpartanGyro(spi_GyroPort, registry);
 		initDriveTrain();
 		initElevator();
-		initArm();
+		//initArm();
 	}
 
 	private void initDriveTrain()
 	{
 		driveLeftVA = new VictorHardware(inv_LEFT_DRIVE_V_A, pwm_LEFT_DRIVE_V_A, registry);
 		driveRightVA = new VictorHardware(inv_RIGHT_DRIVE_V_A, pwm_RIGHT_DRIVE_V_A, registry);
+		driveLeftVB = new VictorHardware(inv_LEFT_DRIVE_V_B, pwm_LEFT_DRIVE_V_B, registry);
+		driveRightVB = new VictorHardware(inv_RIGHT_DRIVE_V_B, pwm_RIGHT_DRIVE_V_B, registry);
 		driveLeftT = new CANTalonHardware(inv_LEFT_DRIVE_T, sinv_LEFT_DRIVE_T, FeedbackDevice.QuadEncoder, 1024,
 				can_LEFT_DRIVE_T, registry);
 		driveRightT = new CANTalonHardware(inv_RIGHT_DRIVE_T, sinv_RIGHT_DRIVE_T, FeedbackDevice.QuadEncoder, 1024,

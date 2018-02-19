@@ -6,6 +6,7 @@ import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
+import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
 import com.team1389.motion_profile.MotionProfile;
 import com.team1389.motion_profile.ProfileUtil;
@@ -26,7 +27,7 @@ import com.team1389.watch.Watchable;
 public class Arm extends Subsystem
 {
 
-	AngleIn armPos;
+	AngleIn<Position> armPos;
 	protected RangeOut<Percent> intakeVolt;
 	RangeOut<Percent> armVolt;
 	DigitalIn beambreak;
@@ -36,7 +37,7 @@ public class Arm extends Subsystem
 	IntakeState intakeState;
 	MotionProfileController profileController;
 
-	public Arm(AngleIn armPos, RangeOut<Percent> intakeVolt, RangeOut<Percent> armVolt, RangeIn<Speed> armVel,
+	public Arm(AngleIn<Position> armPos, RangeOut<Percent> intakeVolt, RangeOut<Percent> armVolt, RangeIn<Speed> armVel,
 			DigitalIn beambreak, DigitalIn zero)
 	{
 		this.armPos = armPos;
@@ -153,7 +154,7 @@ public class Arm extends Subsystem
 	{
 		setPositionState(desired);
 		MotionProfile profile = calculateProfile(desired);
-		profileController.followProfile(profile);
+		profileController.followProfileCommand(profile);
 
 	}
 

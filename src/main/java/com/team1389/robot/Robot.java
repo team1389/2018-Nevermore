@@ -66,11 +66,15 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
+		//robot.driveLeftVB.getVoltageOutput().set(.5);
+		//robot.driveRightVA.getVoltageOutput().set(.5);
+		//robot.driveLeftVA.getVoltageOutput().set(.5);
 
 		teleOperator.periodic();
 	}
 
 	@Override
+	
 	public void disabledInit()
 	{
 	}
