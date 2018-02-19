@@ -1,5 +1,7 @@
 package com.team1389.systems;
 
+import com.team1389.command_framework.CommandUtil;
+import com.team1389.command_framework.command_base.Command;
 import com.team1389.control.MotionProfileController;
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.DigitalIn;
@@ -40,6 +42,7 @@ public class Arm extends Subsystem
 	public Arm(AngleIn<Position> armPos, RangeOut<Percent> intakeVolt, RangeOut<Percent> armVolt, RangeIn<Speed> armVel,
 			DigitalIn beambreak, DigitalIn zero)
 	{
+		super();
 		this.armPos = armPos;
 		this.intakeVolt = intakeVolt;
 		this.armVolt = armVolt;
@@ -116,7 +119,6 @@ public class Arm extends Subsystem
 		}
 		profileController.update();
 
-		intakeVolt.set(intakeState.voltage);
 	}
 
 	public IntakeState getIntakeState()
@@ -129,19 +131,46 @@ public class Arm extends Subsystem
 		return posState;
 	}
 
-	public void goToFront()
+	public Command goToFront()
 	{
-		goTo(PositionState.FRONT);
+		return goTo(PositionState.FRONT);
 	}
 
-	public void goToRear()
+	public Command goToRear()
 	{
-		goTo(PositionState.REAR);
+		return goTo(PositionState.REAR);
 	}
 
-	public void goToVertical()
+	public Command goToVertical()
 	{
-		goTo(PositionState.VERTICAL);
+		return goTo(PositionState.VERTICAL);
+	}
+
+	public Command setIntaking()
+	{
+		setIntakeState(IntakeState.INTAKING);
+		return CommandUtil.createCommand(() ->
+		{
+
+			intakeVolt.set(1);
+			return beambreak.get();
+		});
+	}
+
+	public Command setOuttaking()
+	{
+		setIntakeState(IntakeState.OUTTAKING);
+		return CommandUtil.createCommand(() ->
+		{
+			intakeVolt.set(-1);
+			return !beambreak.get();
+		});
+	}
+
+	public Command setNeutral()
+	{
+		setIntakeState(IntakeState.NEUTRAL);
+		return CommandUtil.createCommand(() -> intakeVolt.set(0));
 	}
 
 	/**
@@ -150,11 +179,11 @@ public class Arm extends Subsystem
 	 * @param desired
 	 *            the state you want to enter
 	 */
-	private void goTo(PositionState desired)
+	private Command goTo(PositionState desired)
 	{
 		setPositionState(desired);
 		MotionProfile profile = calculateProfile(desired);
-		profileController.followProfileCommand(profile);
+		return profileController.followProfileCommand(profile);
 
 	}
 

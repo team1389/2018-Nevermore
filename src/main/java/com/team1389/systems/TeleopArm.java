@@ -1,5 +1,7 @@
 package com.team1389.systems;
 
+import com.team1389.command_framework.CommandUtil;
+import com.team1389.command_framework.command_base.Command;
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.PercentIn;
@@ -10,7 +12,8 @@ import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
 
 /**
- * The 
+ * The
+ * 
  * @author Raffi
  *
  */
@@ -54,22 +57,36 @@ public class TeleopArm extends Arm
 
 	public void updateAdvanced()
 	{
+		Command intakeCommand = determineIntakeCommand();
 		if (frontBtn.get())
 		{
-			goToFront();
+			scheduler.schedule(CommandUtil.combineSequential(goToFront(), intakeCommand));
 		} else if (rearBtn.get())
 		{
-			goToRear();
+			scheduler.schedule(CommandUtil.combineSequential(goToRear(), intakeCommand));
 		} else if (vertBtn.get())
 		{
-			goToVertical();
+			scheduler.schedule(CommandUtil.combineSequential(goToVertical(), intakeCommand));
+
 		}
 		// if intake pressed, intake, if outtake pressed, outtake, if neither,
 		// neutral
-		setIntakeState(((intakeBtn.get()) ? IntakeState.INTAKING
-				: ((outtakeBtn.get()) ? IntakeState.OUTTAKING : IntakeState.NEUTRAL)));
-		intakeVolt.set(getIntakeState().voltage);
 		super.update();
+	}
+
+	private Command determineIntakeCommand()
+	{
+		if (intakeBtn.get())
+		{
+			return setIntaking();
+		}
+		if (outtakeBtn.get())
+		{
+			return setOuttaking();
+		} else
+		{
+			return setNeutral();
+		}
 	}
 
 	public void updateManual()
