@@ -18,7 +18,7 @@ import com.team1389.watch.Watchable;
  * @author Raffi
  *
  */
-public class TeleopElevator extends Subsystem
+public class TeleopElevator extends Elevator
 {
 
 	// can have max bound to start, decided that low and high switch can just be
@@ -27,13 +27,13 @@ public class TeleopElevator extends Subsystem
 	DigitalIn manualBtn;
 	PercentIn ctrlAxis;
 	RangeOut<Percent> elevVolt;
-	boolean manual = true;
+	boolean manual;
 
 	public TeleopElevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt,
 			DigitalIn zeroBtn, DigitalIn switchBtn, DigitalIn scaleLowBtn, DigitalIn scaleMiddleBtn,
 			DigitalIn scaleHighBtn, DigitalIn manualBtn, PercentIn ctrlAxis)
 	{
-		//super(zero, elevPos, elevVel, elevVolt);
+		super(zero, elevPos, elevVel, elevVolt);
 		this.zeroBtn = zeroBtn;
 		this.switchBtn = switchBtn;
 		this.scaleLowBtn = scaleLowBtn;
@@ -43,12 +43,6 @@ public class TeleopElevator extends Subsystem
 		this.ctrlAxis = ctrlAxis;
 	}
 
-	public TeleopElevator(PercentIn ctrlAxis, RangeOut<Percent> elevVolt)
-	{
-		//super(null, null, null, null);
-		this.ctrlAxis = ctrlAxis;
-		this.elevVolt = elevVolt;
-	}
 
 	/**
 	 * If we're in a manual or the manual mode is being pressed, update manual
@@ -58,13 +52,13 @@ public class TeleopElevator extends Subsystem
 	@Override
 	public void update()
 	{
-		//manual = manual ^ manualBtn.get();
+		manual = manual ^ manualBtn.get();
 		if (manual)
 		{
 			updateManual();
 		} else
 		{
-			//updateAdvanced();
+			updateAdvanced();
 		}
 
 	}
@@ -72,7 +66,7 @@ public class TeleopElevator extends Subsystem
 	/**
 	 * updates the mode that uses motion profiles to go to certain heights
 	 */
-	/*private void updateAdvanced()
+	private void updateAdvanced()
 	{
 		if (zeroBtn.get())
 		{
@@ -89,7 +83,7 @@ public class TeleopElevator extends Subsystem
 		}
 
 		super.update();
-	}*/
+	}
 
 	/**
 	 * controls the height of the elevator directly proportional to how much the
@@ -101,23 +95,20 @@ public class TeleopElevator extends Subsystem
 	}
 
 	@Override
-	public AddList<Watchable> getSubWatchables(AddList<Watchable> arg0)
+	public AddList<Watchable> getSubWatchables(AddList<Watchable> stem)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return stem;
 	}
 
 	@Override
 	public String getName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "Teleop Elevator";
 	}
 
 	@Override
 	public void init()
 	{
-		// TODO Auto-generated method stub
 		
 	}
 
