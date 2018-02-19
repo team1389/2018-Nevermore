@@ -35,12 +35,14 @@ public class Elevator extends Subsystem
 	RangeIn<Speed> elevVel;
 	RangeOut<Percent> elevVolt;
 	State currentState;
+	State desiredState;
 	MotionProfileController profileController;
 	SmoothSetController controller;
 	PIDConstants pid;
 
 	public Elevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt)
 	{
+		super();
 		this.zero = zero;
 		this.elevPos = elevPos;
 		this.elevVolt = elevVolt;
@@ -65,6 +67,7 @@ public class Elevator extends Subsystem
 	public void init()
 	{
 		currentState = State.ZERO;
+		desiredState = State.ZERO;
 		pid = new PIDConstants(0.1, 0, 0, 0);
 		profileController = new MotionProfileController(0.1, 0, 0, 0, elevPos, elevVel, elevVolt);
 		controller = new SmoothSetController(pid, RobotConstants.ElevMaxAcceleration,
@@ -82,62 +85,35 @@ public class Elevator extends Subsystem
 			elevPos.offset(-elevPos.get());
 		}
 		profileController.update();
+		if(profileController.isFinished()) {
+			setState(desiredState);
+		}
 	}
 
-	public void goToZero()
+	public Command goToZero()
 	{
-		controller.setSetpoint(State.ZERO.pos);
+		desiredState = State.ZERO;
+		return controller.followProfileCommand(calculateProfile(State.ZERO));
 	}
 
-	/**
-	 * 
-	 * @param front
-	 *            set true if arm should be in front, false if not
-	 */
-	public void goToSwitch(boolean front)
+	public Command goToSwitch()
 	{
-		controller.setSetpoint(State.SWITCH.pos);
-	
-	}
-
-	/**
-	 * note: would always have to use SCALE_LOW for elevDuration could totally
-	 * use the arm enum for front and back instead of boolean have to figure out
-	 * how to select front or back on armCommand idea is that we do armDuration
-	 * - elevDuration, if its < 1 we wait for (armDuration-elevDuration), which
-	 * should allow the arm mp to finish before we hit scale
-	 * 
-	 * @param front
-	 *            set true if arm should be in front, false if not
-	 */
-	public void goToScaleHigh(boolean front)
-	{
-
-		double elevDuration = calculateProfile(State.SCALE_LOW).getDuration();
-		// armDuration is expected duration of arm profile
-		double armDuration = 0;
-		double bufferTime = armDuration - elevDuration;
-		Command armCommand;
+		desiredState = State.SWITCH;
+		return controller.followProfileCommand(calculateProfile(State.SWITCH));
 
 	}
 
-	/**
-	 * idea is that we do armDuration - elevDuration, if its < 1 we wait for
-	 * (armDuration-elevDuration), which should allow the arm mp to finish
-	 * before we hit scale
-	 * 
-	 * @param front
-	 *            if the arm is facing the front of the robot or not
-	 */
-	public void goToScaleLow(boolean front)
+	public Command goToScaleHigh()
 	{
-		goToZero();
+		desiredState = State.SCALE_HIGH;
+		return controller.followProfileCommand(calculateProfile(State.SCALE_HIGH));
 
-		double elevDuration = calculateProfile(State.SCALE_LOW).getDuration();
-		// armDuration is expected duration of arm profile
-		double armDuration = 0;
-		double bufferTime = armDuration - elevDuration;
-		Command armCommand;
+	}
+
+	public Command goToScaleLow()
+	{
+		desiredState = State.SCALE_LOW;
+		return controller.followProfileCommand(calculateProfile(State.SCALE_LOW));
 
 	}
 

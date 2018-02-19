@@ -7,8 +7,6 @@ import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
-import com.team1389.hardware.value_types.Value;
-import com.team1389.system.Subsystem;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
 
@@ -43,7 +41,6 @@ public class TeleopElevator extends Elevator
 		this.ctrlAxis = ctrlAxis;
 	}
 
-
 	/**
 	 * If we're in a manual or the manual mode is being pressed, update manual
 	 * mode, else update advanced mode
@@ -64,22 +61,26 @@ public class TeleopElevator extends Elevator
 	}
 
 	/**
-	 * updates the mode that uses motion profiles to go to certain heights
+	 * updates the mode that uses motion profiles to go to desired heights
 	 */
 	private void updateAdvanced()
 	{
 		if (zeroBtn.get())
 		{
-			goToZero();
+			scheduler.cancelAll();
+			scheduler.schedule(goToZero());
 		} else if (switchBtn.get())
 		{
-			goToSwitch(true);
+			scheduler.cancelAll();
+			scheduler.schedule(goToSwitch());
 		} else if (scaleLowBtn.get())
 		{
-			goToScaleLow(true);
+			scheduler.cancelAll();
+			scheduler.schedule(goToScaleLow());
 		} else if (scaleHighBtn.get())
 		{
-			goToScaleHigh(true);
+			scheduler.cancelAll();
+			scheduler.schedule(goToScaleHigh());
 		}
 
 		super.update();
@@ -109,7 +110,7 @@ public class TeleopElevator extends Elevator
 	@Override
 	public void init()
 	{
-		
+		scheduler.cancelAll();
 	}
 
 }
