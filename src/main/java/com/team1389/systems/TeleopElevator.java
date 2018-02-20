@@ -110,6 +110,7 @@ public class TeleopElevator extends Elevator
 	@Override
 	public void init()
 	{
+		super.init();
 		scheduler.cancelAll();
 	}
 
