@@ -60,12 +60,15 @@ public class TeleopArm extends Arm
 		Command intakeCommand = determineIntakeCommand();
 		if (frontBtn.get())
 		{
+			scheduler.cancelAll();
 			scheduler.schedule(CommandUtil.combineSequential(goToFront(), intakeCommand));
 		} else if (rearBtn.get())
 		{
+			scheduler.cancelAll();
 			scheduler.schedule(CommandUtil.combineSequential(goToRear(), intakeCommand));
 		} else if (vertBtn.get())
 		{
+			scheduler.cancelAll();
 			scheduler.schedule(CommandUtil.combineSequential(goToVertical(), intakeCommand));
 
 		}
