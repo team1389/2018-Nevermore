@@ -26,6 +26,9 @@ public class RobotSoftware extends RobotHardware
 	public final SixDriveOut<Percent> drive = new SixDriveOut<Percent>(driveLeftT.getVoltageController(),
 			driveRightT.getVoltageController(), driveLeftVA.getVoltageController(), driveRightVA.getVoltageController(),
 			driveLeftVB.getVoltageController(), driveRightVB.getVoltageController());
+	//in meters
+	public final RangeIn<Position> lPos = driveLeftT.getSensorPositionStream().mapToRange(0, 1).scale(RobotConstants.WheelDiameter);
+	public final RangeIn<Position> rPos = driveRightT.getSensorPositionStream().mapToRange(0, 1).scale(RobotConstants.WheelDiameter);
 
 	// Elevator
 	// 18.66 scaling is 9.33 gear ratio * 2 for cascading elevator
