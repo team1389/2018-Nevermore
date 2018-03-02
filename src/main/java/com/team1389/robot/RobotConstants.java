@@ -39,5 +39,13 @@ public class RobotConstants {
 	 */
 	public static final double GyroCorrection = 0.05;
 
+	public static double feetToMeters(double ft)
+	{
+		return ft * 0.3048;
+	}
+	public static double rotationsToMeters(double rotations)
+	{
+		return rotations * Math.PI * WheelDiameter;
+	}
 
 }
