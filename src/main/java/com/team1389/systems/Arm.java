@@ -2,17 +2,11 @@ package com.team1389.systems;
 
 import com.team1389.command_framework.CommandUtil;
 import com.team1389.command_framework.command_base.Command;
-import com.team1389.control.MotionProfileController;
-import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
-import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
-import com.team1389.motion_profile.MotionProfile;
-import com.team1389.motion_profile.ProfileUtil;
-import com.team1389.robot.RobotConstants;
 import com.team1389.system.Subsystem;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
@@ -29,26 +23,29 @@ import com.team1389.watch.Watchable;
 public class Arm extends Subsystem
 {
 
-	AngleIn<Position> armPos;
 	protected RangeOut<Percent> intakeVolt;
 	RangeOut<Percent> armVolt;
 	DigitalIn beambreak;
 	DigitalIn zero;
+	DigitalIn vertical;
+	DigitalIn rear;
 	RangeIn<Speed> armVel;
 	PositionState posState;
 	IntakeState intakeState;
-	MotionProfileController profileController;
+	CommandUtil commands;
 
-	public Arm(AngleIn<Position> armPos, RangeOut<Percent> intakeVolt, RangeOut<Percent> armVolt, RangeIn<Speed> armVel,
-			DigitalIn beambreak, DigitalIn zero)
+	public Arm(RangeOut<Percent> intakeVolt, RangeOut<Percent> armVolt, DigitalIn beambreak, DigitalIn zero,
+			DigitalIn vertical, DigitalIn rear, RangeIn<Speed> armVel)
 	{
 		super();
-		this.armPos = armPos;
 		this.intakeVolt = intakeVolt;
 		this.armVolt = armVolt;
 		this.beambreak = beambreak;
 		this.zero = zero;
+		this.vertical = vertical;
+		this.rear = rear;
 		this.armVel = armVel;
+		
 	}
 
 	/**
@@ -102,7 +99,9 @@ public class Arm extends Subsystem
 	{
 		posState = PositionState.FRONT;
 		intakeState = IntakeState.NEUTRAL;
-		profileController = new MotionProfileController(0.1, 0, 0, 0, armPos, armVel, armVolt);
+		commands = new CommandUtil(); 
+		
+		
 
 	}
 
@@ -113,11 +112,6 @@ public class Arm extends Subsystem
 	@Override
 	public void update()
 	{
-		if (zero.get())
-		{
-			armPos.offset(-armPos.get());
-		}
-		profileController.update();
 
 	}
 
@@ -181,28 +175,21 @@ public class Arm extends Subsystem
 	 */
 	private Command goTo(PositionState desired)
 	{
-		setPositionState(desired);
-		MotionProfile profile = calculateProfile(desired);
-		return profileController.followProfileCommand(profile);
+		double setVolt = ((desired.angle == getPositionState().angle) ? 0
+				: (desired.angle > getPositionState().angle) ? -0.5 : 0.5);
+		DigitalIn SwitchToHit = ((desired.equals(PositionState.FRONT)) ? zero
+				: (desired.equals(PositionState.VERTICAL)) ? vertical : rear);
+		return commands.createCommand(() ->
+		{
+			armVolt.set(setVolt);
+			return SwitchToHit.get();
+		});
 
 	}
 
 	private void setPositionState(PositionState desired)
 	{
 		posState = desired;
-	}
-
-	/**
-	 * Generates the motion profile to get to the angle of the desired state
-	 * 
-	 * @param desired
-	 *            the desired state to enter
-	 * @return the motion profile to get to the angle of the desired state
-	 */
-	private MotionProfile calculateProfile(PositionState desired)
-	{
-		return ProfileUtil.trapezoidal(desired.angle, armVel.get(), RobotConstants.ElevMaxAcceleration,
-				RobotConstants.ElevMaxDeceleration, RobotConstants.ElevMaxVelocity);
 	}
 
 	public void setIntakeState(IntakeState desired)

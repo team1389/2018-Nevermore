@@ -29,11 +29,11 @@ public class TeleopArm extends Arm
 	DigitalIn vertBtn, frontBtn, rearBtn, manualBtn, intakeBtn, outtakeBtn;
 	boolean manual;
 
-	public TeleopArm(AngleIn<Position> armPos, PercentIn ctrlAxis, RangeOut<Percent> intakeVolt,
-			RangeOut<Percent> armVolt, RangeIn<Speed> armVel, DigitalIn beambreak, DigitalIn zero, DigitalIn vertBtn,
+	public TeleopArm(PercentIn ctrlAxis, RangeOut<Percent> intakeVolt, RangeOut<Percent> armVolt, RangeIn<Speed> armVel,
+			DigitalIn beambreak, DigitalIn zero, DigitalIn vertical, DigitalIn rear, DigitalIn vertBtn,
 			DigitalIn frontBtn, DigitalIn rearBtn, DigitalIn manualBtn, DigitalIn intakeBtn, DigitalIn outtakeBtn)
 	{
-		super(armPos, intakeVolt, armVolt, armVel, beambreak, zero);
+		super(intakeVolt, armVolt, beambreak, zero, vertical, rear, armVel);
 		this.intakeBtn = intakeBtn;
 		this.outtakeBtn = outtakeBtn;
 		this.frontBtn = frontBtn;
