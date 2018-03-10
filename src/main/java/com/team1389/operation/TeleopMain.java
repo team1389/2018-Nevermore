@@ -34,12 +34,12 @@ public class TeleopMain
 		Watcher watcher = new Watcher();
 		controls = ControlBoard.getInstance();
 		driveSystem = setUpDriveSystem();
-		elevatorSystem = setUpSimpleElevatorSystem(); 
-		//elevatorSystem = setUpElevatorSystem();
-		//armSystem = setUpArmSystem();
+		elevatorSystem = setUpSimpleElevatorSystem();
+		// elevatorSystem = setUpElevatorSystem();
+		// armSystem = setUpArmSystem();
 		// visionSystem = setUpVisionSystem();
-		manager = new SystemManager(driveSystem, elevatorSystem);// ,
-																	// armSystem);
+		manager = new SystemManager(elevatorSystem);// , elevatorSystem);// ,
+													// armSystem);
 		manager.init();
 		watcher.watch(driveSystem, elevatorSystem);
 
@@ -54,8 +54,10 @@ public class TeleopMain
 
 	private Subsystem setUpSimpleElevatorSystem()
 	{
-		return new SimpleElevator(controls.leftStickYAxis(),
-				robot.elevatorLeft.getVoltageController().addFollowers(robot.elevatorRight.getVoltageController()));
+		return new SimpleElevator(controls.leftStickYAxis().copy().invert(), controls.aButton(),
+				robot.elevatorLeft.getVoltageController().addFollowers(robot.elevatorRight.getVoltageController()),
+				robot.armIntakeA.getVoltageController().addFollowers(robot.armIntakeB.getVoltageController()),
+				);
 	}
 
 	/*
@@ -72,13 +74,14 @@ public class TeleopMain
 	 * elevatorRight.getVoltageController())); }
 	 */
 
-	/*private Subsystem setUpArmSystem()
-	{
-		return new TeleopArm(robot.armAngle, controls.rightStickYAxis(), robot.armIntakeA.getVoltageOutput(),
-				robot.armLiftLeft.getVoltageController(), robot.armSpeed, robot.beambreak.getSwitchInput(),
-				robot.armZero.getSwitchInput(), controls.upDPad(), controls.leftBumper(), controls.rightBumper(),
-				controls.backButton(), controls.leftDPad(), controls.rightDPad());
-	}*/
+	/*
+	 * private Subsystem setUpArmSystem() { return new TeleopArm(robot.armAngle,
+	 * controls.rightStickYAxis(), robot.armIntakeA.getVoltageOutput(),
+	 * robot.armLiftLeft.getVoltageController(), robot.armSpeed,
+	 * robot.beambreak.getSwitchInput(), robot.armZero.getSwitchInput(),
+	 * controls.upDPad(), controls.leftBumper(), controls.rightBumper(),
+	 * controls.backButton(), controls.leftDPad(), controls.rightDPad()); }
+	 */
 
 	private Subsystem setUpVisionSystem()
 	{
@@ -87,14 +90,12 @@ public class TeleopMain
 
 	public void periodic()
 	{
-		vision = vision ^ controls.startButton().get();
-		if (vision)
-		{
-			visionSystem.update();
-		} else
-		{
-			manager.update();
-		}
-		Watcher.update();
+		/*
+		 * vision = vision ^ controls.startButton().get(); if (vision) {
+		 * visionSystem.update(); } else {
+		 */
+		manager.update();
+		// }
+		// Watcher.update();
 	}
 }

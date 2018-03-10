@@ -41,7 +41,7 @@ public class RobotMap
 	protected final boolean sinv_LEFT_DRIVE_T = false;
 
 	protected final PWM pwm_RIGHT_DRIVE_V_A = new PWM(2);
-	protected final boolean inv_RIGHT_DRIVE_V_A = false;
+	protected final boolean inv_RIGHT_DRIVE_V_A = true;
 
 	protected final PWM pwm_RIGHT_DRIVE_V_B = new PWM(3);
 	protected final boolean inv_RIGHT_DRIVE_V_B = true;
@@ -70,12 +70,12 @@ public class RobotMap
 	protected final boolean inv_RIGHT_ARM_LIFT = false;
 	protected final boolean sinv_ARM_RIGHT_LIFT = false;
 
-	protected final CAN can_LEFT_ARM_LIFT = new CAN(6);
+	protected final PWM pwm_LEFT_ARM_LIFT = new PWM(6);
 	protected final boolean inv_LEFT_ARM_LIFT = false;
-	protected final boolean sinv_LEFT_ARM_LIFT = false;
 
-	protected final PWM pwm_ARM_INTAKE_A = new PWM(14);
-	protected final boolean inv_ARM_INTAKE_A = true;
+
+	protected final PWM pwm_ARM_INTAKE_A = new PWM(4);
+	protected final boolean inv_ARM_INTAKE_A = false;
 
 	protected final PWM pwm_ARM_INTAKE_B = new PWM(5);
 	protected final boolean inv_ARM_INTAKE_B = true;

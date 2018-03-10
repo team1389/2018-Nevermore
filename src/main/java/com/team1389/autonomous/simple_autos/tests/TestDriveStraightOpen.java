@@ -35,7 +35,7 @@ public class TestDriveStraightOpen extends AutoModeBase
 	@Override
 	protected void routine() throws AutoModeEndedException
 	{
-		runCommand(commands.new DriveStraightOpenLoop(1, 0.25));
+		runCommand(commands.new DriveStraightOpenLoop(2, 0.75));
 
 	}
 

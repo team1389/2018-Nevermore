@@ -2,10 +2,11 @@ package com.team1389.robot;
 
 import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeExecuter;
+import com.team1389.auto.command.DriveStraightCommand;
+import com.team1389.autonomous.simple_autos.tests.TestDriveStraightOpen;
 import com.team1389.hardware.outputs.hardware.CANTalonHardware;
 import com.team1389.hardware.registry.Registry;
 import com.team1389.operation.TeleopMain;
-import com.team1389.system.drive.FourWheelSignal;
 import com.team1389.watchers.DashboardInput;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot
 	CANTalonHardware masterTalon;
 	CANTalonHardware followerTalon;
 	Registry registry;
+	TestDriveStraightOpen auto;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -33,6 +35,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void robotInit()
 	{
+
 		registry = new Registry();
 		robot = RobotSoftware.getInstance();
 		teleOperator = new TeleopMain(robot);
@@ -45,9 +48,12 @@ public class Robot extends IterativeRobot
 	public void autonomousInit()
 	{
 
-		autoModeExecuter.stop();
-		AutoModeBase selectedAutonMode = DashboardInput.getInstance().getSelectedAutonMode();
-		autoModeExecuter.setAutoMode(selectedAutonMode);
+		// autoModeExecuter.stop();
+		// AutoModeBase selectedAutonMode =
+		// DashboardInput.getInstance().getSelectedAutonMode();
+		// autoModeExecuter.setAutoMode(selectedAutonMode);
+		auto = new TestDriveStraightOpen(robot);
+		auto.run();
 
 	}
 
@@ -55,31 +61,42 @@ public class Robot extends IterativeRobot
 	public void teleopInit()
 	{
 
-		autoModeExecuter.stop();
+		// autoModeExecuter.stop();
+
+		auto.stop();
 
 		teleOperator.init();
 	}
 
-	
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
 	public void teleopPeriodic()
 	{
-		//robot.driveLeftVA.getVoltageController().set(0.25);
-		//robot.driveLeftVB.getVoltageController().set(0.5);
-		//robot.driveLeftT.getVoltageController().set(0.25);  // failed
-		
-		//robot.driveRightVA.getVoltageController().set(.5); // pwm2   failed
-		//robot.driveRightVB.getVoltageController().set(.25); // failed
-		//robot.driveRightT.getVoltageController().set(.25);
+		// robot.driveLeftVA.getVoltageController().set(1);
+		// robot.driveLeftVB.getVoltageController().set(1);
+		// robot.driveLeftT.getVoltageController().set(1);
+		// robot.driveRightT.getVoltageController().set(1);
+		// robot.driveRightVA.getVoltageController().set(1);
+		// robot.driveRightVB.getVoltageController().set(1);
+
+		// robot.armLiftLeft.getVoltageController().set(1);
+		// robot.armLiftRight.getVoltageController().set(1);
+		// robot.armIntakeA.getVoltageController().set(1);
+		// robot.armIntakeB.getVoltageController().set(1);
+
+		// robot.elevatorLeft.getVoltageController().set(.5);
+		// robot.elevatorRight.getVoltageController().set(1);
+
+		// robot.armIntakeA.getVoltageController().set(.25);
+		// robot.armIntakeB.getVoltageController().set(.25);
 
 		teleOperator.periodic();
 	}
 
 	@Override
-	
+
 	public void disabledInit()
 	{
 	}
