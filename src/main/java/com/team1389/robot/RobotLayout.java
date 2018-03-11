@@ -27,8 +27,8 @@ public class RobotLayout extends RobotMap
 	public CANTalonHardware driveRightT;
 	public CANTalonHardware elevatorRight;
 	public CANTalonHardware elevatorLeft;
-	public VictorHardware armLiftLeft;
-	public CANTalonHardware armLiftRight;
+	public CANTalonHardware armLiftLeft;
+	public VictorHardware armLiftRight;
 	public SpartanGyro gyro;
 	public SwitchHardware elevatorZero;
 	public SwitchHardware elevatorTop;

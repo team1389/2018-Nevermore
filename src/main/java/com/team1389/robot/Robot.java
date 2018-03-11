@@ -2,14 +2,16 @@ package com.team1389.robot;
 
 import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeExecuter;
-import com.team1389.auto.command.DriveStraightCommand;
-import com.team1389.autonomous.simple_autos.tests.TestDriveStraightOpen;
-import com.team1389.hardware.outputs.hardware.CANTalonHardware;
+import com.team1389.autonomous.simple_autos.RobotCommands;
+import com.team1389.autonomous.simple_autos.RobotCommands.DriveStraightOpenLoop;
+import com.team1389.autonomous.simple_autos.tests.OpenSwitchAutoRight;
 import com.team1389.hardware.registry.Registry;
 import com.team1389.operation.TeleopMain;
+import com.team1389.util.Timer;
 import com.team1389.watchers.DashboardInput;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,10 +25,11 @@ public class Robot extends IterativeRobot
 	RobotSoftware robot;
 	TeleopMain teleOperator;
 	AutoModeExecuter autoModeExecuter;
-	CANTalonHardware masterTalon;
-	CANTalonHardware followerTalon;
+
 	Registry registry;
-	TestDriveStraightOpen auto;
+	DriveStraightOpenLoop auto;
+	RobotCommands commands;
+	Timer t;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -42,30 +45,37 @@ public class Robot extends IterativeRobot
 		autoModeExecuter = new AutoModeExecuter();
 		DashboardInput.getInstance().init();
 
+		commands = new RobotCommands(robot);
+
+		// auto = commands.new DriveStraightOpenLoop(2, .25);
+
 	}
 
 	@Override
 	public void autonomousInit()
 	{
 
-		// autoModeExecuter.stop();
-		// AutoModeBase selectedAutonMode =
-		// DashboardInput.getInstance().getSelectedAutonMode();
-		// autoModeExecuter.setAutoMode(selectedAutonMode);
-		auto = new TestDriveStraightOpen(robot);
-		auto.run();
+		AutoModeBase selectedAutonMode = new OpenSwitchAutoRight(robot);
+		autoModeExecuter.setAutoMode(selectedAutonMode);
+		autoModeExecuter.run();
 
+	}
+
+	@Override
+	public void autonomousPeriodic()
+	{
 	}
 
 	@Override
 	public void teleopInit()
 	{
 
-		// autoModeExecuter.stop();
+		autoModeExecuter.stop();
+		robot.armIntake.set(0);
 
-		auto.stop();
+		// robot.armLiftLeft.getVoltageController().set(.6);
 
-		teleOperator.init();
+		 teleOperator.init();
 	}
 
 	/**
@@ -74,24 +84,27 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
-		// robot.driveLeftVA.getVoltageController().set(1);
-		// robot.driveLeftVB.getVoltageController().set(1);
-		// robot.driveLeftT.getVoltageController().set(1);
-		// robot.driveRightT.getVoltageController().set(1);
-		// robot.driveRightVA.getVoltageController().set(1);
-		// robot.driveRightVB.getVoltageController().set(1);
+//		 robot.driveLeftVA.getVoltageController().set(.75);
+//		 robot.driveLeftVB.getVoltageController().set(.75);
+//		 robot.driveRightVA.getVoltageController().set(.75);
+//		 robot.driveRightVB.getVoltageController().set(.75);
 
-		// robot.armLiftLeft.getVoltageController().set(1);
-		// robot.armLiftRight.getVoltageController().set(1);
+		 //robot.armLiftRight.getVoltageController().set(1);
+		 //robot.armLiftLeft.getVoltageController().set(1);
+		// SmartDashboard.putNumber("Angle", robot.robotAngle.get());
+
 		// robot.armIntakeA.getVoltageController().set(1);
 		// robot.armIntakeB.getVoltageController().set(1);
 
 		// robot.elevatorLeft.getVoltageController().set(.5);
 		// robot.elevatorRight.getVoltageController().set(1);
 
-		// robot.armIntakeA.getVoltageController().set(.25);
-		// robot.armIntakeB.getVoltageController().set(.25);
-
+//		 robot.armIntakeA.getVoltageController().set(1);
+//		 robot.armIntakeB.getVoltageController().set(1);
+//		robot.armIntake.set(1);
+		SmartDashboard.putNumber("raw elevator val", robot.rawElevatorPos.get());
+		SmartDashboard.putNumber("elevator in meters", robot.elevatorPositionleft.get()); 
+		
 		teleOperator.periodic();
 	}
 

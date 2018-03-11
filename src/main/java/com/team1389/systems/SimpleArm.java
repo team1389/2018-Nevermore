@@ -1,5 +1,6 @@
 package com.team1389.systems;
 
+import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.PercentIn;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
@@ -11,6 +12,28 @@ public class SimpleArm extends Subsystem
 {
 	PercentIn ctrlAxis;
 	RangeOut<Percent> armVolt;
+	DigitalIn intake;
+	DigitalIn outtake;
+	DigitalIn neutral;
+	RangeOut<Percent> intakeVolt;
+
+	
+	public SimpleArm(PercentIn ctrlAxis, RangeOut<Percent> armVolt)
+	{
+		this.ctrlAxis = ctrlAxis;
+		this.armVolt = armVolt;
+	}
+	
+	public SimpleArm(PercentIn ctrlAxis, RangeOut<Percent> armVolt, DigitalIn intake, DigitalIn outtake, DigitalIn neutral, RangeOut<Percent> intakeVolt)
+	{
+		this.intake = intake;
+		this.outtake = outtake;
+		this.neutral = neutral;
+		this.intakeVolt = intakeVolt;
+		this.ctrlAxis = ctrlAxis;
+		this.armVolt = armVolt;
+		
+	}
 
 	@Override
 	public AddList<Watchable> getSubWatchables(AddList<Watchable> stem)
@@ -34,7 +57,18 @@ public class SimpleArm extends Subsystem
 	@Override
 	public void update()
 	{
-		armVolt.set(ctrlAxis.invert().get());
+		if(intake.get())
+		{
+			intakeVolt.set(1);
+		}
+		else if(outtake.get()) {
+			intakeVolt.set(-1);
+			
+		}
+		else if(neutral.get()) {
+			intakeVolt.set(0);
+		}
+		armVolt.set(ctrlAxis.get());
 	}
 
 }

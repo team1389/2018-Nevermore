@@ -2,7 +2,6 @@ package com.team1389.autonomous.simple_autos;
 
 import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeEndedException;
-import com.team1389.robot.RobotConstants;
 import com.team1389.robot.RobotSoftware;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
@@ -34,7 +33,7 @@ public class CrossAutoline extends AutoModeBase
 	@Override
 	protected void routine() throws AutoModeEndedException
 	{
-		runCommand(commands.new DriveStraight(RobotConstants.feetToMeters(11)));
+		runCommand(commands.new DriveStraightOpenLoop(3, .25));
 
 	}
 

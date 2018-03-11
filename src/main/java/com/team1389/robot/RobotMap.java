@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.SPI;
  * <p>
  * <b>Conventions</b>: <br>
  * For I/O ports, the naming convention is <em>type_ALL_CAPS_IDENTIFIER</em>.
- * for example, a talon port might be named can_LEFT_MOTOR_A. Possible port
+ * for example, a talon port might be named can_RIGHT_MOTOR_A. Possible port
  * types and identifiers are CAN (can), Analog (anlg), PWM (pwm), USB (usb), PCM
  * (pcm), DIO (dio), etc
  * <p>
@@ -30,34 +30,34 @@ import edu.wpi.first.wpilibj.SPI;
 public class RobotMap
 {
 	// Drivetrain
-	protected final PWM pwm_LEFT_DRIVE_V_A = new PWM(1);
-	protected final boolean inv_LEFT_DRIVE_V_A = false;
-
-	protected final PWM pwm_LEFT_DRIVE_V_B = new PWM(0);
-	protected final boolean inv_LEFT_DRIVE_V_B = false;
-
-	protected final CAN can_LEFT_DRIVE_T = new CAN(1);
-	protected final boolean inv_LEFT_DRIVE_T = false;
-	protected final boolean sinv_LEFT_DRIVE_T = false;
-
-	protected final PWM pwm_RIGHT_DRIVE_V_A = new PWM(2);
+	protected final PWM pwm_RIGHT_DRIVE_V_A = new PWM(1);
 	protected final boolean inv_RIGHT_DRIVE_V_A = true;
 
-	protected final PWM pwm_RIGHT_DRIVE_V_B = new PWM(3);
+	protected final PWM pwm_RIGHT_DRIVE_V_B = new PWM(0);
 	protected final boolean inv_RIGHT_DRIVE_V_B = true;
 
-	protected final CAN can_RIGHT_DRIVE_T = new CAN(2);
+	protected final CAN can_RIGHT_DRIVE_T = new CAN(1);
 	protected final boolean inv_RIGHT_DRIVE_T = true;
 	protected final boolean sinv_RIGHT_DRIVE_T = false;
 
-	// Elevator
-	protected final CAN can_RIGHT_ELEVATOR = new CAN(3);
-	protected final boolean inv_RIGHT_ELEVATOR = false;
-	protected final boolean sinv_RIGHT_ELEVATOR = false;
+	protected final PWM pwm_LEFT_DRIVE_V_A = new PWM(2);
+	protected final boolean inv_LEFT_DRIVE_V_A = false;
 
-	protected final CAN can_LEFT_ELEVATOR = new CAN(4);
+	protected final PWM pwm_LEFT_DRIVE_V_B = new PWM(3);
+	protected final boolean inv_LEFT_DRIVE_V_B = false;
+
+	protected final CAN can_LEFT_DRIVE_T = new CAN(2);
+	protected final boolean inv_LEFT_DRIVE_T = false;
+	protected final boolean sinv_LEFT_DRIVE_T = false;
+
+	// Elevator
+	protected final CAN can_LEFT_ELEVATOR = new CAN(3);
 	protected final boolean inv_LEFT_ELEVATOR = false;
 	protected final boolean sinv_LEFT_ELEVATOR = false;
+
+	protected final CAN can_RIGHT_ELEVATOR = new CAN(4);
+	protected final boolean inv_RIGHT_ELEVATOR = true;
+	protected final boolean sinv_RIGHT_ELEVATOR = false;
 
 	protected final DIO dio_ELEVATOR_ZERO = new DIO(0);
 	protected final boolean inv_ELEVATOR_ZERO = false;
@@ -66,12 +66,12 @@ public class RobotMap
 	protected final boolean inv_ELEVATOR_TOP = false;
 
 	// Arm
-	protected final CAN can_RIGHT_ARM_LIFT = new CAN(5);
-	protected final boolean inv_RIGHT_ARM_LIFT = false;
-	protected final boolean sinv_ARM_RIGHT_LIFT = false;
-
-	protected final PWM pwm_LEFT_ARM_LIFT = new PWM(6);
+	protected final CAN can_LEFT_ARM_LIFT = new CAN(5);
 	protected final boolean inv_LEFT_ARM_LIFT = false;
+	protected final boolean sinv_ARM_LEFT_LIFT = false;
+
+	protected final PWM pwm_RIGHT_ARM_LIFT = new PWM(6);
+	protected final boolean inv_RIGHT_ARM_LIFT = true;
 
 
 	protected final PWM pwm_ARM_INTAKE_A = new PWM(4);
@@ -88,5 +88,6 @@ public class RobotMap
 
 	// gyro
 	protected final SPIPort spi_GyroPort = new SPIPort(SPI.Port.kOnboardCS0);
+	protected final CAN can_PDP = new CAN(0);
 
 }

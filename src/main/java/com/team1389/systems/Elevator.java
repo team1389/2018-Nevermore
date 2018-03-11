@@ -1,12 +1,11 @@
 package com.team1389.systems;
 
+import com.team1389.command_framework.CommandUtil;
 import com.team1389.command_framework.command_base.Command;
 import com.team1389.configuration.PIDConstants;
-import com.team1389.control.MotionProfileController;
-import com.team1389.control.SmoothSetController;
+import com.team1389.control.SynchronousPIDController;
 import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.RangeIn;
-import com.team1389.hardware.outputs.software.PercentOut;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
@@ -17,7 +16,6 @@ import com.team1389.robot.RobotConstants;
 import com.team1389.system.Subsystem;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
-import com.team1389.watch.info.BooleanInfo;
 
 /**
  * Provides control of the elevator system. Controls both the first and second
@@ -36,10 +34,8 @@ public class Elevator extends Subsystem
 	RangeOut<Percent> elevVolt;
 	State currentState;
 	State desiredState;
-	MotionProfileController profileController;
-	SmoothSetController controller;
 	PIDConstants pid;
-
+	SynchronousPIDController pidController;
 	public Elevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt)
 	{
 		super();
@@ -53,8 +49,7 @@ public class Elevator extends Subsystem
 	public AddList<Watchable> getSubWatchables(AddList<Watchable> stem)
 	{
 		return stem.put(zero.getWatchable("elev zero"), elevPos.getWatchable("elev pos"),
-				elevVel.getWatchable("elev vel"),
-				new BooleanInfo("profile finished", () -> profileController.isFinished()));
+				elevVel.getWatchable("elev vel"));
 	}
 
 	@Override
@@ -69,12 +64,7 @@ public class Elevator extends Subsystem
 		currentState = State.ZERO;
 		desiredState = State.ZERO;
 		pid = new PIDConstants(0.1, 0, 0, 0);
-		profileController = new MotionProfileController(0.1, 0, 0, 0, elevPos, elevVel, elevVolt);
-		controller = new SmoothSetController(pid, RobotConstants.ElevMaxAcceleration,
-				RobotConstants.ElevMaxDeceleration, RobotConstants.ElevMaxVelocity, elevPos, elevVel,
-				(PercentOut) elevVolt);
-		controller.enable();
-
+		pidController = new SynchronousPIDController<>(pid, elevPos, elevVolt);
 	}
 
 	@Override
@@ -84,36 +74,33 @@ public class Elevator extends Subsystem
 		{
 			elevPos.offset(-elevPos.get());
 		}
-		profileController.update();
-		if(profileController.isFinished()) {
-			setState(desiredState);
-		}
+		
 	}
 
 	public Command goToZero()
 	{
 		desiredState = State.ZERO;
-		return controller.followProfileCommand(calculateProfile(State.ZERO));
+		return pidToCommand(State.ZERO.pos);
 	}
 
 	public Command goToSwitch()
 	{
 		desiredState = State.SWITCH;
-		return controller.followProfileCommand(calculateProfile(State.SWITCH));
+		return pidToCommand(State.SWITCH.pos);
 
 	}
 
 	public Command goToScaleHigh()
 	{
 		desiredState = State.SCALE_HIGH;
-		return controller.followProfileCommand(calculateProfile(State.SCALE_HIGH));
+		return pidToCommand(State.SCALE_HIGH.pos);
 
 	}
 
 	public Command goToScaleLow()
 	{
 		desiredState = State.SCALE_LOW;
-		return controller.followProfileCommand(calculateProfile(State.SCALE_LOW));
+		return pidToCommand(State.SCALE_LOW.pos);
 
 	}
 
@@ -122,6 +109,16 @@ public class Elevator extends Subsystem
 	 * these are in meters
 	 */
 
+	public Command pidToCommand(double setPoint)
+	
+	{
+		pidController.setSetpoint(setPoint);
+		return CommandUtil.createCommand(() -> 
+		{
+			pidController.update();
+			return pidController.onTarget(0.1);
+		});
+	}
 	public enum State
 	{
 		ZERO(0), SWITCH(0.5), SCALE_LOW(1.24), SCALE_MIDDLE(1.544), SCALE_HIGH(1.849);

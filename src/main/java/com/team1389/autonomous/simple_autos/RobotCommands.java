@@ -65,7 +65,8 @@ public class RobotCommands
 		{
 			double gyroTerm = robot.robotAngle.get() - angleOffset;
 			double val = .1 * -gyroTerm;
-			tankDrive.set(voltage - val, voltage + val);
+//			tankDrive.set(voltage - val, voltage + val);
+			tankDrive.set(voltage, voltage);
 			return timer.get() > time; 
 		}
 
@@ -83,9 +84,32 @@ public class RobotCommands
 		{
 			super(angle, absolute, 2, robot.gyro.getAngleInput().invert(),
 					TurnAngleCommand.createTurnController(robot.drive.getAsTank()),
-					new PIDConstants(0.02, 0, 0));
+					new PIDConstants(0.00001, 0, 0));
 		}
 
+	}
+	public class OpenLoopTurnAngle extends Command
+	{
+		private double time;
+		private double voltage;
+		RobotSoftware robot;
+		Timer timer; 
+		public OpenLoopTurnAngle(RobotSoftware robot, double time, double voltage)
+		{
+			this.time = time;
+			this.voltage = voltage;
+			this.robot = robot;
+			timer = new Timer();
+		}
+		@Override
+		protected boolean execute()
+		{
+			//return false;
+			//reversed
+			robot.drive.getAsTank().set(voltage, -voltage);
+			return timer.get()> time;
+		}
+		
 	}
 
 	
