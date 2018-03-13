@@ -1,13 +1,10 @@
 package com.team1389.robot;
 
-import java.util.function.Supplier;
-
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
-import com.team1389.hardware.value_types.Speed;
 import com.team1389.system.drive.SixDriveOut;
 
 //all mapped to meters

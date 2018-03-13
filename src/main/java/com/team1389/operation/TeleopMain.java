@@ -10,7 +10,6 @@ import com.team1389.system.drive.CheesyDriveSystem;
 import com.team1389.system.drive.DriveOut;
 import com.team1389.systems.SimpleArm;
 import com.team1389.systems.SimpleElevator;
-import com.team1389.systems.TeleopArm;
 import com.team1389.systems.TeleopElevator;
 import com.team1389.watch.Watcher;
 
@@ -23,8 +22,6 @@ public class TeleopMain
 	Subsystem driveSystem;
 	Subsystem elevatorSystem;
 	Subsystem armSystem;
-	Subsystem visionSystem;
-	boolean vision = false;
 
 	public TeleopMain(RobotSoftware robot)
 	{
@@ -33,23 +30,20 @@ public class TeleopMain
 
 	public void init()
 	{
-		Watcher watcher = new Watcher();
 		controls = ControlBoard.getInstance();
 		driveSystem = setUpDriveSystem();
 		elevatorSystem = setUpSimpleElevatorSystem();
 		armSystem = setUpSimpleArm();
 		manager = new SystemManager(elevatorSystem);
-		;
 		manager.init();
 
 	}
 
 	private Subsystem setUpDriveSystem()
 	{
-		;
-		return new CheesyDriveSystem(
-				new DriveOut(robot.drive.getAsTank().left().scale(.4), robot.drive.getAsTank().right().scale(.4)),
-				controls.xLeftDriveY(), controls.xDriveX(), controls.xDriveBtn());
+
+		return new CheesyDriveSystem(robot.drive.getAsTank(), controls.xLeftDriveY(), controls.xDriveX(),
+				controls.xDriveBtn());
 
 	}
 

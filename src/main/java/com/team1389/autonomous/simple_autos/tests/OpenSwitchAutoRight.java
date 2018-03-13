@@ -7,7 +7,6 @@ import com.team1389.autonomous.simple_autos.RobotCommands;
 import com.team1389.command_framework.CommandUtil;
 import com.team1389.robot.RobotSoftware;
 import com.team1389.system.drive.DriveSignal;
-import com.team1389.system.drive.SixWheelSignal;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
 

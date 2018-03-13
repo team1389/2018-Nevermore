@@ -7,11 +7,9 @@ import com.team1389.autonomous.simple_autos.RobotCommands.DriveStraightOpenLoop;
 import com.team1389.autonomous.simple_autos.tests.OpenSwitchAutoRight;
 import com.team1389.hardware.registry.Registry;
 import com.team1389.operation.TeleopMain;
-import com.team1389.util.Timer;
 import com.team1389.watchers.DashboardInput;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the

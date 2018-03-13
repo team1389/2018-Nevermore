@@ -3,7 +3,6 @@ package com.team1389.autonomous.simple_autos.tests;
 import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeEndedException;
 import com.team1389.autonomous.simple_autos.RobotCommands;
-import com.team1389.autonomous.simple_autos.RobotCommands.DriveStraightOpenLoop;
 import com.team1389.robot.RobotSoftware;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
