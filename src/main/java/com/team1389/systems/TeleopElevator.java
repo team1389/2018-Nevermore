@@ -21,15 +21,22 @@ public class TeleopElevator extends Elevator
 
 	// can have max bound to start, decided that low and high switch can just be
 	// high switch
-	DigitalIn zeroBtn, switchBtn, scaleLowBtn, scaleMiddleBtn, scaleHighBtn;
+	DigitalIn zeroBtn;
+	DigitalIn switchBtn;
+	DigitalIn scaleLowBtn;
+	DigitalIn scaleMiddleBtn;
+	DigitalIn scaleHighBtn;
 	DigitalIn manualBtn;
+	PercentIn intakeAxis;
 	PercentIn ctrlAxis;
 	RangeOut<Percent> elevVolt;
+	RangeOut<Percent> intakeVolt;
 	boolean manual;
 
 	public TeleopElevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt,
-			DigitalIn zeroBtn, DigitalIn switchBtn, DigitalIn scaleLowBtn, DigitalIn scaleMiddleBtn,
-			DigitalIn scaleHighBtn, DigitalIn manualBtn, PercentIn ctrlAxis)
+			RangeOut<Percent> intakeVolt, DigitalIn zeroBtn, DigitalIn switchBtn, DigitalIn scaleLowBtn,
+			DigitalIn scaleMiddleBtn, DigitalIn scaleHighBtn, DigitalIn manualBtn, PercentIn ctrlAxis,
+			PercentIn intakeAxis)
 	{
 		super(zero, elevPos, elevVel, elevVolt);
 		this.zeroBtn = zeroBtn;
@@ -39,6 +46,8 @@ public class TeleopElevator extends Elevator
 		this.scaleHighBtn = scaleHighBtn;
 		this.manualBtn = manualBtn;
 		this.ctrlAxis = ctrlAxis;
+		this.intakeAxis = intakeAxis;
+		this.intakeVolt = intakeVolt;
 	}
 
 	/**
@@ -49,7 +58,9 @@ public class TeleopElevator extends Elevator
 	@Override
 	public void update()
 	{
+		intakeVolt.set(intakeAxis.invert().get());
 		manual = manual ^ manualBtn.get();
+
 		if (manual)
 		{
 			updateManual();
@@ -65,6 +76,7 @@ public class TeleopElevator extends Elevator
 	 */
 	private void updateAdvanced()
 	{
+
 		if (zeroBtn.get())
 		{
 			scheduler.cancelAll();
@@ -93,6 +105,7 @@ public class TeleopElevator extends Elevator
 	private void updateManual()
 	{
 		elevVolt.set(ctrlAxis.get());
+
 	}
 
 	@Override

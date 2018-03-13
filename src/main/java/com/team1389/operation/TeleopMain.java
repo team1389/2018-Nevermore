@@ -56,9 +56,9 @@ public class TeleopMain
 	{
 
 		return new TeleopElevator(robot.elevatorZero.getSwitchInput(), robot.elevatorPositionleft,
-				new RangeIn<Speed>(Speed.class, () -> 0.0, 0, 1), robot.elevator, controls.startButton(),
+				new RangeIn<Speed>(Speed.class, () -> 0.0, 0, 1), robot.elevator, robot.armIntake, controls.startButton(),
 				controls.xButton(), controls.aButton(), controls.bButton(), controls.yButton(), controls.startButton(),
-				controls.leftStickYAxis());
+				controls.leftStickYAxis(), controls.rightStickYAxis());
 	}
 
 	private Subsystem setUpSimpleArm()
