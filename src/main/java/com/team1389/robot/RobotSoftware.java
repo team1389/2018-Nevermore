@@ -13,7 +13,7 @@ public class RobotSoftware extends RobotHardware
 	private static RobotSoftware INSTANCE = new RobotSoftware();
 
 	// misc
-	public final AngleIn<Position> robotAngle = gyro.getAngleInput();
+	public final AngleIn<Position> robotAngle = gyro.getAngleInput().invert();
 
 	// Drivetrain
 

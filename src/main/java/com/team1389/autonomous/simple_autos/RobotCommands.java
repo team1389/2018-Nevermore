@@ -82,7 +82,7 @@ public class RobotCommands
 
 		public TurnAngle(double angle, boolean absolute)
 		{
-			super(angle, absolute, 2, robot.gyro.getAngleInput().invert(),
+			super(angle, absolute, 2, robot.robotAngle,
 					TurnAngleCommand.createTurnController(robot.drive.getAsTank()),
 					new PIDConstants(0.00001, 0, 0));
 		}
