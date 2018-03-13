@@ -29,7 +29,6 @@ public class Robot extends IterativeRobot
 	Registry registry;
 	DriveStraightOpenLoop auto;
 	RobotCommands commands;
-	Timer t;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -44,10 +43,6 @@ public class Robot extends IterativeRobot
 		teleOperator = new TeleopMain(robot);
 		autoModeExecuter = new AutoModeExecuter();
 		DashboardInput.getInstance().init();
-
-		commands = new RobotCommands(robot);
-
-		// auto = commands.new DriveStraightOpenLoop(2, .25);
 
 	}
 
@@ -73,9 +68,7 @@ public class Robot extends IterativeRobot
 		autoModeExecuter.stop();
 		robot.armIntake.set(0);
 
-		// robot.armLiftLeft.getVoltageController().set(.6);
-
-		 teleOperator.init();
+		teleOperator.init();
 	}
 
 	/**
@@ -84,27 +77,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
-//		 robot.driveLeftVA.getVoltageController().set(.75);
-//		 robot.driveLeftVB.getVoltageController().set(.75);
-//		 robot.driveRightVA.getVoltageController().set(.75);
-//		 robot.driveRightVB.getVoltageController().set(.75);
 
-		 //robot.armLiftRight.getVoltageController().set(1);
-		 //robot.armLiftLeft.getVoltageController().set(1);
-		// SmartDashboard.putNumber("Angle", robot.robotAngle.get());
-
-		// robot.armIntakeA.getVoltageController().set(1);
-		// robot.armIntakeB.getVoltageController().set(1);
-
-		// robot.elevatorLeft.getVoltageController().set(.5);
-		// robot.elevatorRight.getVoltageController().set(1);
-
-//		 robot.armIntakeA.getVoltageController().set(1);
-//		 robot.armIntakeB.getVoltageController().set(1);
-//		robot.armIntake.set(1);
-		SmartDashboard.putNumber("raw elevator val", robot.rawElevatorPos.get());
-		SmartDashboard.putNumber("elevator in meters", robot.elevatorPositionleft.get()); 
-		
 		teleOperator.periodic();
 	}
 
