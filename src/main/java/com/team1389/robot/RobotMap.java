@@ -64,6 +64,9 @@ public class RobotMap
 
 	protected final DIO dio_ELEVATOR_TOP = new DIO(1);
 	protected final boolean inv_ELEVATOR_TOP = false;
+	
+	protected final PWM pwm_ELEVATOR_SERVO = new PWM(7);
+	
 
 	// Arm
 	protected final CAN can_LEFT_ARM_LIFT = new CAN(5);

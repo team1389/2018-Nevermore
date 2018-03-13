@@ -4,6 +4,7 @@ import com.team1389.hardware.inputs.hardware.PDPHardware;
 import com.team1389.hardware.inputs.hardware.SpartanGyro;
 import com.team1389.hardware.inputs.hardware.SwitchHardware;
 import com.team1389.hardware.outputs.hardware.CANTalonHardware;
+import com.team1389.hardware.outputs.hardware.ServoHardware;
 import com.team1389.hardware.outputs.hardware.VictorHardware;
 import com.team1389.hardware.registry.Registry;
 
@@ -34,5 +35,6 @@ public class RobotLayout extends RobotMap
 	public SwitchHardware elevatorTop;
 	public SwitchHardware armZero;
 	public SwitchHardware beambreak;
+	public ServoHardware elevatorServo;
 
 }
