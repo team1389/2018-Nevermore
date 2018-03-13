@@ -44,8 +44,10 @@ public class RobotHardware extends RobotLayout
 		driveRightVB = new VictorHardware(inv_RIGHT_DRIVE_V_B, pwm_RIGHT_DRIVE_V_B, registry);
 		driveLeftT = new CANTalonHardware(inv_LEFT_DRIVE_T, sinv_LEFT_DRIVE_T, FeedbackDevice.QuadEncoder, 1024,
 				can_LEFT_DRIVE_T, registry);
+		driveLeftT.setMaxCurrent(30);
 		driveRightT = new CANTalonHardware(inv_RIGHT_DRIVE_T, sinv_RIGHT_DRIVE_T, FeedbackDevice.QuadEncoder, 1024,
 				can_RIGHT_DRIVE_T, registry, t -> t.setSelectedSensorPosition(0, 0, 10));
+		driveRightT.setMaxCurrent(30);
 	}
 
 	private void initElevator()
