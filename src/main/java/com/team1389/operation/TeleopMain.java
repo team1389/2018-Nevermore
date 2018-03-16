@@ -7,8 +7,6 @@ import com.team1389.robot.RobotSoftware;
 import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
 import com.team1389.system.drive.CheesyDriveSystem;
-import com.team1389.system.drive.DriveOut;
-import com.team1389.systems.SimpleArm;
 import com.team1389.systems.SimpleElevator;
 import com.team1389.systems.TeleopElevator;
 import com.team1389.watch.Watcher;
@@ -21,7 +19,6 @@ public class TeleopMain
 	Watcher watcher;
 	Subsystem driveSystem;
 	Subsystem elevatorSystem;
-	Subsystem armSystem;
 
 	public TeleopMain(RobotSoftware robot)
 	{
@@ -33,8 +30,7 @@ public class TeleopMain
 		controls = ControlBoard.getInstance();
 		driveSystem = setUpDriveSystem();
 		elevatorSystem = setUpSimpleElevatorSystem();
-		armSystem = setUpSimpleArm();
-		manager = new SystemManager(elevatorSystem);
+		manager = new SystemManager(driveSystem, elevatorSystem);
 		manager.init();
 
 	}
@@ -49,22 +45,17 @@ public class TeleopMain
 
 	private Subsystem setUpSimpleElevatorSystem()
 	{
-		return new SimpleElevator(controls.leftStickYAxis().copy().invert(), robot.elevator);
+		return new SimpleElevator(controls.leftStickYAxis().copy().invert(), robot.elevator,
+				controls.rightStickYAxis().invert(), robot.armIntake);
 	}
 
 	private Subsystem setUpElevatorSystem()
 	{
 
-		return new TeleopElevator(robot.elevatorZero.getSwitchInput(), robot.elevatorPositionleft,
-				new RangeIn<Speed>(Speed.class, () -> 0.0, 0, 1), robot.elevator, robot.armIntake, controls.startButton(),
-				controls.xButton(), controls.aButton(), controls.bButton(), controls.yButton(), controls.startButton(),
-				controls.leftStickYAxis(), controls.rightStickYAxis());
-	}
-
-	private Subsystem setUpSimpleArm()
-	{
-		return new SimpleArm(controls.leftStickYAxis().invert(), robot.arm, controls.aButton(), controls.bButton(),
-				controls.yButton(), robot.armIntake);
+		return new TeleopElevator(robot.elevatorZero.getSwitchInput(), robot.elevatorPosition,
+				new RangeIn<Speed>(Speed.class, () -> 0.0, 0, 1), robot.elevator, robot.armIntake,
+				controls.startButton(), controls.xButton(), controls.aButton(), controls.bButton(), controls.yButton(),
+				controls.startButton(), controls.leftStickYAxis(), controls.rightStickYAxis());
 	}
 
 	public void periodic()

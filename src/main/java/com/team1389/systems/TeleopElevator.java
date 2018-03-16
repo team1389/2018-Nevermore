@@ -65,6 +65,7 @@ public class TeleopElevator extends Elevator
 		{
 			updateManual();
 		} else
+			
 		{
 			updateAdvanced();
 		}

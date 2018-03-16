@@ -37,10 +37,8 @@ public class RobotSoftware extends RobotHardware
 			.scale(RobotConstants.WheelDiameter);
 
 	// Elevator
-	// 18.66 scaling is 9.33 gear ratio * 2 for cascading elevator
-	public final RangeIn<Position> rawElevatorPos = elevatorLeft.getSensorPositionStream();
-	public final RangeIn<Position> elevatorPositionleft = elevatorLeft.getSensorPositionStream().scale(10).mapToRange(0,
-			3.14);
+//	conversion is ticks * 1/1024 * sprocket diameter * pi
+	public final RangeIn<Position> elevatorPosition = elevatorLeft.getSensorPositionStream().scale(.00011688933);
 	public final RangeIn<Position> elevatorServoPosition = elevatorServo.getPositionInput();
 	// in inches
 	/*

@@ -10,6 +10,7 @@ import com.team1389.operation.TeleopMain;
 import com.team1389.watchers.DashboardInput;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -83,5 +84,14 @@ public class Robot extends IterativeRobot
 
 	public void disabledInit()
 	{
+	}
+	
+	@Override
+
+	public void disabledPeriodic()
+	{
+		SmartDashboard.putNumber("TL", robot.driveLeftT.getSensorPositionStream().get());
+		SmartDashboard.putNumber("TR", robot.driveRightT.getSensorPositionStream().get());
+
 	}
 }

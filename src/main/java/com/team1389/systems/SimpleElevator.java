@@ -9,15 +9,20 @@ import com.team1389.watch.Watchable;
 
 public class SimpleElevator extends Subsystem
 {
-	private RangeIn<Percent> ctrlAxis;
-	private RangeOut<Percent> elevVolt;
+	RangeIn<Percent> ctrlAxis;
+	RangeOut<Percent> elevVolt;
+	RangeIn<Percent> intakeAxis;
+	RangeOut<Percent> intakeVolt;
+	
+	
 
 	
-	public SimpleElevator(RangeIn<Percent> ctrlAxis, RangeOut<Percent> elevVolt)
+	public SimpleElevator(RangeIn<Percent> ctrlAxis, RangeOut<Percent> elevVolt, RangeIn<Percent> intakeAxis, RangeOut<Percent> intakeVolt)
 	{
-		super();
 		this.ctrlAxis = ctrlAxis;
 		this.elevVolt = elevVolt;
+		this.intakeAxis = intakeAxis;
+		this.intakeVolt = intakeVolt;
 	}
 
 	@Override
@@ -43,6 +48,7 @@ public class SimpleElevator extends Subsystem
 	@Override
 	public void update()
 	{
+		intakeVolt.set(intakeAxis.invert().get());
 		elevVolt.set(ctrlAxis.get() * .5);
 	}
 

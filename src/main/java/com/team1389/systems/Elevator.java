@@ -116,7 +116,7 @@ public class Elevator extends Subsystem
 		return CommandUtil.createCommand(() -> 
 		{
 			pidController.update();
-			return pidController.onTarget(0.1);
+			return pidController.onTarget(0.05);
 		});
 	}
 	public enum State
