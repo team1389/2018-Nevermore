@@ -2,6 +2,7 @@ package com.team1389.robot;
 
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.RangeIn;
+import com.team1389.hardware.outputs.software.AngleOut;
 import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
@@ -40,7 +41,7 @@ public class RobotSoftware extends RobotHardware
 	// Elevator
 //	conversion is ticks * 1/1024 * sprocket diameter * pi
 	public final RangeIn<Position> elevatorPosition = elevatorLeft.getSensorPositionStream().scale(.00011688933);
-	public final RangeOut<Position> elevatorServoPosition = elevatorServo.getPositionOutput();
+	public final AngleOut<Position> elevatorServoPosition = elevatorServo.getAngleOutput();
 	// in inches
 	/*
 	 * private final RangeIn<Position> elevatorPositionRight =

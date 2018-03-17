@@ -46,16 +46,17 @@ public class TeleopMain
 	private Subsystem setUpSimpleElevatorSystem()
 	{
 		return new SimpleElevator(controls.leftStickYAxis().copy().invert(), robot.elevator,
-				controls.rightStickYAxis().invert(), robot.armIntake);
+				controls.rightStickYAxis().copy().invert(), robot.armIntake, robot.elevatorServoPosition,
+				controls.yButton());
 	}
 
 	private Subsystem setUpElevatorSystem()
 	{
 
 		return new TeleopElevator(robot.elevatorZero.getSwitchInput(), robot.elevatorPosition,
-				new RangeIn<Speed>(Speed.class, () -> 0.0, 0, 1), robot.elevator, robot.elevatorServoPosition, robot.armIntake,
-				controls.startButton(), controls.xButton(), controls.aButton(), controls.bButton(), controls.yButton(),
-				controls.startButton(), controls.leftStickYAxis(), controls.rightStickYAxis());
+				new RangeIn<Speed>(Speed.class, () -> 0.0, 0, 1), robot.elevator, robot.elevatorServoPosition,
+				robot.armIntake, controls.startButton(), controls.xButton(), controls.aButton(), controls.bButton(),
+				controls.yButton(), controls.startButton(), controls.leftStickYAxis(), controls.rightStickYAxis());
 	}
 
 	public void periodic()
