@@ -33,12 +33,12 @@ public class TeleopElevator extends Elevator
 	RangeOut<Percent> intakeVolt;
 	boolean manual;
 
-	public TeleopElevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt,
+	public TeleopElevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt,  RangeOut<Position> servoVolt,
 			RangeOut<Percent> intakeVolt, DigitalIn zeroBtn, DigitalIn switchBtn, DigitalIn scaleLowBtn,
 			DigitalIn scaleMiddleBtn, DigitalIn scaleHighBtn, DigitalIn manualBtn, PercentIn ctrlAxis,
 			PercentIn intakeAxis)
 	{
-		super(zero, elevPos, elevVel, elevVolt);
+		super(zero, elevPos, elevVel, elevVolt, servoVolt);
 		this.zeroBtn = zeroBtn;
 		this.switchBtn = switchBtn;
 		this.scaleLowBtn = scaleLowBtn;

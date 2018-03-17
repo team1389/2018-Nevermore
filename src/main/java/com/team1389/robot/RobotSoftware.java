@@ -35,11 +35,12 @@ public class RobotSoftware extends RobotHardware
 			.scale(RobotConstants.WheelDiameter);
 	public final RangeIn<Position> rPos = driveRightT.getSensorPositionStream().mapToRange(0, 1)
 			.scale(RobotConstants.WheelDiameter);
+	
 
 	// Elevator
 //	conversion is ticks * 1/1024 * sprocket diameter * pi
 	public final RangeIn<Position> elevatorPosition = elevatorLeft.getSensorPositionStream().scale(.00011688933);
-	public final RangeIn<Position> elevatorServoPosition = elevatorServo.getPositionInput();
+	public final RangeOut<Position> elevatorServoPosition = elevatorServo.getPositionOutput();
 	// in inches
 	/*
 	 * private final RangeIn<Position> elevatorPositionRight =

@@ -36,13 +36,15 @@ public class Elevator extends Subsystem
 	State desiredState;
 	PIDConstants pid;
 	SynchronousPIDController pidController;
-	public Elevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt)
+	RangeOut<Position> servoVolt;
+	public Elevator(DigitalIn zero, RangeIn<Position> elevPos, RangeIn<Speed> elevVel, RangeOut<Percent> elevVolt, RangeOut<Position> servoVolt)
 	{
 		super();
 		this.zero = zero;
 		this.elevPos = elevPos;
 		this.elevVolt = elevVolt;
 		this.elevVel = elevVel;
+		this.servoVolt = servoVolt;
 	}
 
 	@Override
@@ -112,6 +114,7 @@ public class Elevator extends Subsystem
 	public Command pidToCommand(double setPoint)
 	
 	{
+		servoVolt.set(50);
 		pidController.setSetpoint(setPoint);
 		return CommandUtil.createCommand(() -> 
 		{
@@ -119,6 +122,11 @@ public class Elevator extends Subsystem
 			return pidController.onTarget(0.05);
 		});
 	}
+	
+	/*public Command brake(ServoState desired)
+	{
+		return CommandUtil.createCommand(() -> servoVolt.set(desired.servoPos));
+	}*/
 	public enum State
 	{
 		ZERO(0), SWITCH(0.5), SCALE_LOW(1.24), SCALE_MIDDLE(1.544), SCALE_HIGH(1.849);
@@ -129,6 +137,18 @@ public class Elevator extends Subsystem
 			this.pos = pos;
 		}
 	}
+	
+/*	public enum ServoState
+	{
+		BRAKE(0), FREE(50);
+		private final double servoPos;
+		
+		private ServoState(double servoPos)
+		{
+			this.servoPos = servoPos;
+		}
+		
+	}*/
 
 	private void setState(State toSet)
 	{

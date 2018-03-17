@@ -53,7 +53,7 @@ public class TeleopMain
 	{
 
 		return new TeleopElevator(robot.elevatorZero.getSwitchInput(), robot.elevatorPosition,
-				new RangeIn<Speed>(Speed.class, () -> 0.0, 0, 1), robot.elevator, robot.armIntake,
+				new RangeIn<Speed>(Speed.class, () -> 0.0, 0, 1), robot.elevator, robot.elevatorServoPosition, robot.armIntake,
 				controls.startButton(), controls.xButton(), controls.aButton(), controls.bButton(), controls.yButton(),
 				controls.startButton(), controls.leftStickYAxis(), controls.rightStickYAxis());
 	}
