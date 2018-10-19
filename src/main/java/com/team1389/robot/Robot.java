@@ -8,7 +8,6 @@ import com.team1389.autonomous.simple_autos.tests.OpenSwitchAutoRight;
 import com.team1389.hardware.registry.Registry;
 import com.team1389.operation.TeleopMain;
 import com.team1389.watchers.DashboardInput;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,8 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot
-{
+public class Robot extends IterativeRobot {
 	RobotSoftware robot;
 	TeleopMain teleOperator;
 	AutoModeExecuter autoModeExecuter;
@@ -30,12 +28,11 @@ public class Robot extends IterativeRobot
 	RobotCommands commands;
 
 	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
+	 * This function is run when the robot is first started up and should be used
+	 * for any initialization code.
 	 */
 	@Override
-	public void robotInit()
-	{
+	public void robotInit() {
 
 		registry = new Registry();
 		robot = RobotSoftware.getInstance();
@@ -46,8 +43,7 @@ public class Robot extends IterativeRobot
 	}
 
 	@Override
-	public void autonomousInit()
-	{
+	public void autonomousInit() {
 
 		AutoModeBase selectedAutonMode = new OpenSwitchAutoRight(robot);
 		autoModeExecuter.setAutoMode(selectedAutonMode);
@@ -56,13 +52,11 @@ public class Robot extends IterativeRobot
 	}
 
 	@Override
-	public void autonomousPeriodic()
-	{
+	public void autonomousPeriodic() {
 	}
 
 	@Override
-	public void teleopInit()
-	{
+	public void teleopInit() {
 
 		autoModeExecuter.stop();
 		robot.armIntake.set(0);
@@ -74,22 +68,20 @@ public class Robot extends IterativeRobot
 	 * This function is called periodically during operator control
 	 */
 	@Override
-	public void teleopPeriodic()
-	{
-
+	public void teleopPeriodic() {
+		// left side good
+		// right side is good
 		teleOperator.periodic();
 	}
 
 	@Override
 
-	public void disabledInit()
-	{
+	public void disabledInit() {
 	}
-	
+
 	@Override
 
-	public void disabledPeriodic()
-	{
+	public void disabledPeriodic() {
 		SmartDashboard.putNumber("TL", robot.driveLeftT.getSensorPositionStream().get());
 		SmartDashboard.putNumber("TR", robot.driveRightT.getSensorPositionStream().get());
 

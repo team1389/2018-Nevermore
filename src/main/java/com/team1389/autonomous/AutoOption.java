@@ -15,28 +15,23 @@ import com.team1389.robot.RobotSoftware;
  * @author Quunii
  *
  */
-public enum AutoOption
-{
-	CROSS_AUTOLINE(CrossAutoline::new), SAME_SIDE_LEFT_SWITCH(SameSideLeftSwitch::new), SAME_SIDE_RIGHT_SWITCH(SameSideRightSwitch::new);
+public enum AutoOption {
+	CROSS_AUTOLINE(CrossAutoline::new), SAME_SIDE_LEFT_SWITCH(SameSideLeftSwitch::new),
+	SAME_SIDE_RIGHT_SWITCH(SameSideRightSwitch::new);
 	Optional<Function<RobotSoftware, AutoModeBase>> autoConstructor;
 
-	AutoOption(Function<RobotSoftware, AutoModeBase> autoConstructor)
-	{
+	AutoOption(Function<RobotSoftware, AutoModeBase> autoConstructor) {
 		this.autoConstructor = Optional.of(autoConstructor);
 	}
 
-	AutoOption()
-	{
+	AutoOption() {
 		this.autoConstructor = Optional.empty();
 	}
 
-	public AutoModeBase setupAutoModeBase(RobotSoftware robot)
-	{
-		if (autoConstructor.isPresent())
-		{
+	public AutoModeBase setupAutoModeBase(RobotSoftware robot) {
+		if (autoConstructor.isPresent()) {
 			return autoConstructor.get().apply(robot);
-		} else
-		{
+		} else {
 			throw new RuntimeException("cannot auto insantiate a complex style auto option!");
 		}
 	}

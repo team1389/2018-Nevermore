@@ -1,7 +1,8 @@
-/bin/
-/build/
-/build/*
-/export/
-/dist/
-/bin/
-/.gradle/
+bin/
+build/
+build/*
+export/
+dist/
+bin/
+*.gradle
+*.json

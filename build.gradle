@@ -13,6 +13,7 @@ def ROBOT_CLASS = "com.team1389.robot.Robot"
 deploy {
     targets {
         target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
+        
             team = TEAM
         }
     }
@@ -26,7 +27,6 @@ repositories {
 	mavenCentral()
 	maven {url "https://github.com/OhmSuite/ohm/tree/release"}
 	maven {url 'https://jitpack.io'}
-
 }
 
 // Defining dependencies. In this case, WPILib (+ friends), CTRE Toolsuite (Talon SRX),
@@ -40,7 +40,6 @@ dependencies {
    	compile files('native')
    	//compile 'com.github.OhmSuite:ohm:0.1.0'
    	compile files('../ohm/Ohm/build/libs/Ohm-0.1.0.jar')
-   	
 }
 
 // Setting up the Jar File. In this case, adding all libraries into the main jar ('fat jar')

@@ -8,8 +8,7 @@ import com.team1389.hardware.value_types.Position;
 import com.team1389.system.drive.SixDriveOut;
 
 //all mapped to meters
-public class RobotSoftware extends RobotHardware
-{
+public class RobotSoftware extends RobotHardware {
 	private static RobotSoftware INSTANCE = new RobotSoftware();
 
 	// misc
@@ -24,8 +23,6 @@ public class RobotSoftware extends RobotHardware
 	public final SixDriveOut<Percent> drive = new SixDriveOut<Percent>(driveLeftT.getVoltageController(),
 			driveRightT.getVoltageController(), driveLeftVA.getVoltageController(), driveRightVA.getVoltageController(),
 			driveLeftVB.getVoltageController(), driveRightVB.getVoltageController());
-	public final RangeOut<Percent> arm = armLiftRight.getVoltageController()
-			.addFollowers(armLiftLeft.getVoltageController());
 	public final RangeOut<Percent> armIntake = armIntakeA.getVoltageController()
 			.addFollowers(armIntakeB.getVoltageController());
 	public final RangeOut<Percent> elevator = elevatorLeft.getVoltageController()
@@ -36,41 +33,11 @@ public class RobotSoftware extends RobotHardware
 	public final RangeIn<Position> rPos = driveRightT.getSensorPositionStream().mapToRange(0, 1)
 			.scale(RobotConstants.WheelDiameter);
 
-	// Elevator
-//	conversion is ticks * 1/1024 * sprocket diameter * pi
-	public final RangeIn<Position> elevatorPosition = elevatorLeft.getSensorPositionStream().scale(.00011688933);
-	public final RangeIn<Position> elevatorServoPosition = elevatorServo.getPositionInput();
-	// in inches
-	/*
-	 * private final RangeIn<Position> elevatorPositionRight =
-	 * elevatorRight.getSensorPositionStream().scale(18.66) .mapToRange(0,
-	 * 0.087776098768); public final RangeIn<Position> elevatorPosition = new
-	 * RangeIn<Position>(Position.class, () -> ((elevatorPositionleft.get() +
-	 * elevatorPositionRight.get()) / 2), 0, 2.159);
-	 * 
-	 * // Arm public final AngleIn<Position> armAngle =
-	 * armLiftRight.getSensorPositionStream().mapToAngle(Position.class); public
-	 * final RangeIn<Speed> armSpeed =
-	 * armLiftRight.getSensorPositionStream().scale(10).mapToAngle(Speed.class);
-	 * // 93.3 scaling is for gear ratio * conversion to (eventually) meters/sec
-	 * private final RangeIn<Speed> elevatorSpeedLeft =
-	 * elevatorLeft.getVelocityStream().scale(93.3).mapToRange(0,
-	 * 0.087776098768); private final RangeIn<Speed> elevatorSpeedRight =
-	 * elevatorRight.getVelocityStream().scale(93.3).mapToRange(0,
-	 * 0.087776098768); public final RangeIn<Speed> elevatorSpeed = new
-	 * RangeIn<Speed>(Speed.class, (Supplier<Double>) () ->
-	 * ((elevatorRight.getVelocityStream().get() +
-	 * elevatorLeft.getVelocityStream().get()) / 2), Double.MIN_VALUE,
-	 * Double.MAX_VALUE);
-	 */
-
-	public static RobotSoftware getInstance()
-	{
+	public static RobotSoftware getInstance() {
 		return INSTANCE;
 	}
 
-	public RobotSoftware()
-	{
+	public RobotSoftware() {
 	}
 
 }

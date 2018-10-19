@@ -14,8 +14,7 @@ import com.team1389.hardware.registry.Registry;
  * the robot.
  * 
  */
-public class RobotLayout extends RobotMap
-{
+public class RobotLayout extends RobotMap {
 	public Registry registry;
 	public PDPHardware pdp;
 	public VictorHardware driveLeftVA;
@@ -28,8 +27,6 @@ public class RobotLayout extends RobotMap
 	public CANTalonHardware driveRightT;
 	public CANTalonHardware elevatorRight;
 	public CANTalonHardware elevatorLeft;
-	public CANTalonHardware armLiftLeft;
-	public VictorHardware armLiftRight;
 	public SpartanGyro gyro;
 	public SwitchHardware elevatorZero;
 	public SwitchHardware elevatorTop;

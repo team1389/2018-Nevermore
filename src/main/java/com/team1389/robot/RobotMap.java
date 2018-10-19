@@ -27,8 +27,7 @@ import edu.wpi.first.wpilibj.SPI;
  * <em>inv_ASSOCIATED_IO_IDENTIFIER</em> for outputs and
  * <em>sinv_ASSOCIATED_IO_IDENTIFIER</em> for inputs.
  */
-public class RobotMap
-{
+public class RobotMap {
 	// Drivetrain
 	protected final PWM pwm_RIGHT_DRIVE_V_A = new PWM(1);
 	protected final boolean inv_RIGHT_DRIVE_V_A = true;
@@ -64,9 +63,8 @@ public class RobotMap
 
 	protected final DIO dio_ELEVATOR_TOP = new DIO(1);
 	protected final boolean inv_ELEVATOR_TOP = false;
-	
+
 	protected final PWM pwm_ELEVATOR_SERVO = new PWM(7);
-	
 
 	// Arm
 	protected final CAN can_LEFT_ARM_LIFT = new CAN(5);
@@ -75,7 +73,6 @@ public class RobotMap
 
 	protected final PWM pwm_RIGHT_ARM_LIFT = new PWM(6);
 	protected final boolean inv_RIGHT_ARM_LIFT = true;
-
 
 	protected final PWM pwm_ARM_INTAKE_A = new PWM(4);
 	protected final boolean inv_ARM_INTAKE_A = false;
