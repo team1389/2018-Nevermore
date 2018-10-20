@@ -9,6 +9,8 @@ import com.team1389.autonomous.simple_autos.tests.OpenSwitchAutoRight;
 import com.team1389.hardware.controls.ControlBoard;
 import com.team1389.hardware.registry.Registry;
 import com.team1389.operation.TeleopMain;
+import com.team1389.system.drive.DriveSignal;
+import com.team1389.system.drive.SixDriveOut;
 import com.team1389.system.drive.SixWheelSignal;
 import com.team1389.util.Timer;
 import com.team1389.watchers.DashboardInput;
@@ -81,8 +83,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		teleOperator.periodic();
-		// robot.drive.set(new SixWheelSignal(1, 1, 1, 1, 1, 1));
+
+		// teleOperator.periodic();
+		// #3 starts and stops
+		// #4 doesn't do anything
+		// robot.drive.set(new SixWheelSignal(0, 0, 1, 0, 0, 0));
+		SixWheelSignal driveSignal = new SixWheelSignal(0, 0, 1, 0, 0, 0);
+		robot.front.set(driveSignal.getTopWheels());
+		robot.middle.set(driveSignal.getMiddleWheels());
+		robot.back.set(driveSignal.getBottomWheels());
 	}
 
 	@Override
